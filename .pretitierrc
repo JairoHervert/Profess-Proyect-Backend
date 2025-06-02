@@ -1,0 +1,10 @@
+{
+  "semi": true,               // Usa punto y coma al final de las líneas
+  "singleQuote": true,        // Usa comillas simples en lugar de dobles
+  "tabWidth": 2,              // Espacios por tabulación
+  "useTabs": false,           // Usa espacios en lugar de tabs
+  "trailingComma": "es5",     // Coma final solo en objetos/arrays ES5
+  "printWidth": 100,          // Máximo de caracteres por línea antes de cortar
+  "bracketSpacing": true,     // Espacio entre llaves: { foo: bar }
+  "arrowParens": "avoid"      // Omite paréntesis si solo hay un parámetro
+}
