@@ -1,5 +1,5 @@
-import { PrestamistaRepository } from "../../domain/repositories/prestamista.repository";
-import { CreatePrestamistaDto } from "../../domain/dtos/prestamista.dto";
+import { PrestamistaRepository } from "../../../domain/repositories/prestamista.repository";
+import { CreatePrestamistaDto } from "../../../domain/dtos/prestamista.dto";
 import bcrypt from "bcrypt";
 
 export class CreatePrestamistaService {

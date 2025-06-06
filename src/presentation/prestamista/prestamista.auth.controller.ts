@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaPrestamistaRepository } from "../../models/prisma/prisma.prestamista.repository";
-import { CreatePrestamistaService } from "../services/create-prestamista.service";
+import { CreatePrestamistaService } from "../services/Prestamista/create-prestamista.service";
 
 export class PrestamistaAuthController {
   private readonly registerService = new CreatePrestamistaService(
