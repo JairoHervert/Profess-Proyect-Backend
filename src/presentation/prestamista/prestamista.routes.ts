@@ -7,6 +7,7 @@ export class PrestamistaRoutes {
     const controller = new PrestamistaAuthController();
 
     router.post("/register", controller.registerPrestamista);
+    router.post("/login", controller.loginPrestamista);
     return router;
   }
 }

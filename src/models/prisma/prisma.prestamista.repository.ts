@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { PrestamistaRepository } from "../../domain/repositories/prestamista.repository";
-import { CreatePrestamistaDto } from "../../domain/dtos/prestamista.dto";
+import { CreatePrestamistaDto } from "../../domain/dtos/prestamista-register.dto";
 import { PrestamistaEntity } from "../../domain/entities/prestamista.entity";
 
 const prisma = new PrismaClient();
