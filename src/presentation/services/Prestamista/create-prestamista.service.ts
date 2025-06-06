@@ -1,6 +1,7 @@
 import { PrestamistaRepository } from "../../../domain/repositories/prestamista.repository";
-import { CreatePrestamistaDto } from "../../../domain/dtos/prestamista.dto";
-import bcrypt from "bcrypt";
+import { CreatePrestamistaDto } from "../../../domain/dtos/prestamista-register.dto";
+import { JwtAdapter } from "../../../config/jwt.adapter";
+import { bcryptAdapter } from "../../../config/bcrypt.adapter";
 
 export class CreatePrestamistaService {
   constructor(private readonly repo: PrestamistaRepository) {}
@@ -11,11 +12,22 @@ export class CreatePrestamistaService {
       throw new Error("El correo ya está en uso");
     }
 
-    const hashedPassword = await bcrypt.hash(data.contraseña, 10);
+    const hashedPassword = bcryptAdapter.hash(data.contraseña);
 
-    return this.repo.create({
+    const prestamista = await this.repo.create({
       ...data,
       contraseña: hashedPassword,
     });
+
+    const token = await JwtAdapter.generateToken({
+      prestamista_id: prestamista.id,
+      correo: prestamista.correo,
+    });
+
+    return {
+      prestamista_id: prestamista.id,
+      correo: prestamista.correo,
+      token: token,
+    };
   }
 }
