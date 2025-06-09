@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import cors from "cors";
+import { connectMongoDB } from "../../mongoose/mongo-connect";
 
 interface Options {
   port: number;
@@ -29,6 +30,9 @@ export class Server {
     this.app.use(cors());
     //* Public Folder
     this.app.use(express.static(this.publicPath));
+
+    //* MongoDB Connection
+    await connectMongoDB();
 
     //* Routes
     this.app.use(this.routes);

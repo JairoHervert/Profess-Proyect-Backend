@@ -1,0 +1,7 @@
+export interface MessageEntity {
+  id: string;
+  sender: string;
+  receiver: string;
+  timestamp: Date;
+  content: string | { filename: string; filepath: string };
+}
