@@ -30,3 +30,6 @@ Cambios realizados:
 
 - NOTA: INSTANCIE DE MALA MANERA LA FUNCION PARA CREAR MENSAJES,
 - NOTA2: ACABO DE VER QUE MONGO POR SI SOLO CREA UN ID UNICO, DEBO QUITARLO
+
+
+Prueba de push en mi rama sin el untracked files
