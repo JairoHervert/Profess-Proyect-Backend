@@ -27,6 +27,7 @@ export class MessagesChatController {
     const obtainLastUserChatsService = new ObtainLastUserChatsService(
       new MongooseMessageRepository(),
     );
+    
     obtainLastUserChatsService
       .execute(sender)
       .then(async (messages) => res.json(messages))

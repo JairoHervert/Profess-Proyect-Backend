@@ -1,17 +1,14 @@
 import { MessageRepository } from "../../../domain/repositories/message.repository";
-import { CreateMessageDto } from "../../../domain/dtos/message.dto";
+import { MessageEntity } from "../../../domain/entities/message.entity";
 
 export class ObtainLastUserChatsService {
   constructor(private readonly repo: MessageRepository) {}
 
-  async execute(sender: string): Promise<CreateMessageDto[]> {
-    // Obtener los mensajes enviados por el usuario
-    const sentMessages = await this.repo.findBySender(sender);
-    return sentMessages.map(message => ({
-      sender: message.sender,
-      receiver: message.receiver,
-      timestamp: message.timestamp,
-      content: message.content,
-    }));
+  async execute(user: string): Promise<MessageEntity[]> {
+    const chats = await this.repo.getUniqueChats(user);
+    if (!chats || chats.length === 0) {
+      throw new Error("No se encontraron chats para el usuario especificado");
+    }
+    return chats;
   }
 }

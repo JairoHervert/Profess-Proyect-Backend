@@ -16,7 +16,7 @@ export class MessagesChatRoutes {
     router.post('/send', controller.sendMessage);
 
     // Ruta para obtener mensajes por remitente y receptor
-    router.get('/messages/:sender/:receiver', controller.obtainLastUserChats);
+    router.get('/last-messages/:sender/', controller.obtainLastUserChats);
 
     return router;
   }

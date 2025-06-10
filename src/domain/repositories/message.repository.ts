@@ -7,4 +7,7 @@ export interface MessageRepository {
   findBySender(sender: string): Promise<MessageEntity[]>;
   findByReceiver(receiver: string): Promise<MessageEntity[]>;
   findBySenderAndReceiver(sender: string, receiver: string): Promise<MessageEntity[]>;
+
+  // Nuevas agregadas durante el desarrollo
+  getUniqueChats(user: string): Promise<MessageEntity[]>;
 }

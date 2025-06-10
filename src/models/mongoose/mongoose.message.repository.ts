@@ -61,4 +61,54 @@ export class MongooseMessageRepository implements MessageRepository {
       content: message.content,
     }));
   }
+
+  // Funciones nuevas agregadas durante el desarrollo
+
+  async getUniqueChats(user: string): Promise<MessageEntity[]> {
+    const messages = await MessageModel.aggregate([
+      {
+        $match: {
+          $or: [
+            { sender: user },
+            { receiver: user }
+          ]
+        }
+      },
+      {
+        $addFields: {
+          otherUser: {
+            $cond: {
+              if: { $eq: ['$sender', user] },
+              then: '$receiver',
+              else: '$sender'
+            }
+          }
+        }
+      },
+      {
+        $group: {
+          _id: '$otherUser',
+          lastMessage: { $last: '$$ROOT' }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          sender: '$lastMessage.sender',
+          receiver: '$lastMessage.receiver',
+          timestamp: '$lastMessage.timestamp',
+          content: '$lastMessage.content'
+        }
+      }
+    ]);
+
+    return messages.map(message => ({
+      _id: message._id,
+      sender: message.sender,
+      receiver: message.receiver,
+      timestamp: message.timestamp,
+      content: message.content,
+    }));
+  }
+
 }
