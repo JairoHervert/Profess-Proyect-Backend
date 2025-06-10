@@ -1,4 +1,3 @@
-// repository for messages
 import { CreateMessageDto } from '../dtos/message.dto';
 import { MessageEntity } from '../entities/message.entity';
 
