@@ -8,6 +8,7 @@ export class PrestamistaRoutes {
 
     router.post("/register", controller.registerPrestamista);
     router.post("/login", controller.loginPrestamista);
+    router.post("/register-google", controller.registerGooglePrestamista);
     return router;
   }
 }

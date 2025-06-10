@@ -7,7 +7,11 @@ export class PrestamistaAuthController {
   private readonly registerService = new CreatePrestamistaService(
     new PrismaPrestamistaRepository(),
   );
-
+  
+  private readonly registerGoogleService = new CreatePrestamistaService(
+    new PrismaPrestamistaRepository(),
+  );
+  
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof Error) {
       return res.status(400).json({ error: error.message });
@@ -25,6 +29,14 @@ export class PrestamistaAuthController {
       .then(async (prestamista) => res.json(prestamista))
       .catch((error) => this.handleError(error, res));
   };
+
+  public registerGooglePrestamista = async (req: Request, res: Response) => {
+
+    this.registerGoogleService
+      .execute(req.body)
+      .then(async (prestamista) => res.json(prestamista))
+      .catch((error) => this.handleError(error, res));
+  }
 
   public loginPrestamista = (req: Request, res: Response) => {
     const { correo, contraseña } = req.body;

@@ -12,7 +12,7 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
     return {
       id: prestamista.idPrestamista,
       correo: prestamista.correo,
-      telefono: prestamista.telefono,
+      telefono: prestamista.telefono ?? undefined,
       tipoEntidad: prestamista.tipoEntidad,
       descripcion: prestamista.descripcion ?? undefined,
       linkFoto: prestamista.linkFoto ?? undefined,
@@ -32,7 +32,7 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
     return {
       id: prestamista.idPrestamista,
       correo: prestamista.correo,
-      telefono: prestamista.telefono,
+      telefono: prestamista.telefono ?? undefined,
       tipoEntidad: prestamista.tipoEntidad,
       descripcion: prestamista.descripcion ?? undefined,
       linkFoto: prestamista.linkFoto ?? undefined,

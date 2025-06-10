@@ -1,6 +1,6 @@
 export interface CreatePrestamistaDto {
   correo: string;
-  telefono: string;
+  telefono?: string;
   contraseña: string;
   tipoEntidad: string;
   descripcion?: string;

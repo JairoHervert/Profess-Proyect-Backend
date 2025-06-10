@@ -1,7 +1,7 @@
 export interface PrestamistaEntity {
   id: number;
   correo: string;
-  telefono: string;
+  telefono?: string;
   tipoEntidad: string;
   descripcion?: string;
   linkFoto?: string;
