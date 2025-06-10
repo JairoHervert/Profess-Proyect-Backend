@@ -52,7 +52,13 @@ export class MongooseMessageRepository implements MessageRepository {
   }
 
   async findBySenderAndReceiver(sender: string, receiver: string): Promise<MessageEntity[]> {
-    const messages = await MessageModel.find({ sender, receiver });
+    const messages = await MessageModel.find({
+      $or: [
+        { sender, receiver },
+        { sender: receiver, receiver: sender }
+      ]
+    }).sort({ timestamp: 1 });
+
     return messages.map(message => ({
       _id: message._id,
       sender: message.sender,
@@ -61,6 +67,7 @@ export class MongooseMessageRepository implements MessageRepository {
       content: message.content,
     }));
   }
+
 
   // Funciones nuevas agregadas durante el desarrollo
 
