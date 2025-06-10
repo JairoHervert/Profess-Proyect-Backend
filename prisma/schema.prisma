@@ -10,7 +10,7 @@ datasource db {
 model Categoria {
   idCategoria     Int        @id @default(autoincrement())
   nombreCategoria String     @unique
-  servicios       Servicio[]  // 
+  servicios       Servicio[] // 
 }
 
 model Cliente {
@@ -21,90 +21,91 @@ model Cliente {
   telefono     String
   linkFoto     String?
 
-  solicitudes  SolicitudContratacion[] //
+  solicitudes SolicitudContratacion[] //
 }
 
 model Prestamista {
-  idPrestamista Int     @id @default(autoincrement())
-  correo        String  @unique
-  telefono      String
-  contraseña    String
-  tipoEntidad   String
-  descripcion   String?
-  linkFoto      String?
-  calificacion  Int?
-  nombre        String
+  idPrestamista    Int     @id @default(autoincrement())
+  correo           String  @unique
+  telefono         String?
+  contraseña      String
+  tipoEntidad      String
+  descripcion      String?
+  linkFoto         String?
+  calificacion     Int?
+  nombre           String
+  correoVerificado Boolean @default(false)
 
-  servicios     Servicio[]
-  fotos         FotoTrabajo[]
-  aptitudes     Aptitud[]
-  experiencias  Experiencia[]
+  servicios    Servicio[]
+  fotos        FotoTrabajo[]
+  aptitudes    Aptitud[]
+  experiencias Experiencia[]
 }
 
 model Servicio {
-  idServicio    Int     @id @default(autoincrement())
-  titulo        String
-  descripcion   String
-  zona          String
-  precio        Int
-  fecha         DateTime @default(now())
+  idServicio     Int             @id @default(autoincrement())
+  titulo         String
+  descripcion    String
+  zona           String
+  precio         Int
+  fecha          DateTime        @default(now())
   disponibilidad Disponibilidad?
 
   prestamista_idPrestamista Int
   categoria_idCategoria     Int
 
-  prestamista Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
-  categoria   Categoria   @relation(fields: [categoria_idCategoria], references: [idCategoria])
+  prestamista Prestamista             @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
+  categoria   Categoria               @relation(fields: [categoria_idCategoria], references: [idCategoria])
   solicitudes SolicitudContratacion[]
 }
 
 model SolicitudContratacion {
-  idSolicitud         Int     @id @default(autoincrement())
+  idSolicitud         Int             @id @default(autoincrement())
   estado              EstadoSolicitud
   fechaSolicitud      DateTime
   servicio_idServicio Int
   cliente_idCliente   Int
 
-  servicio Servicio @relation(fields: [servicio_idServicio], references: [idServicio])
-  cliente  Cliente  @relation(fields: [cliente_idCliente], references: [idCliente])
+  servicio Servicio  @relation(fields: [servicio_idServicio], references: [idServicio])
+  cliente  Cliente   @relation(fields: [cliente_idCliente], references: [idCliente])
   mensajes Mensaje[]
 }
 
 model Mensaje {
-  idMensaje                        Int     @id @default(autoincrement())
-  remitente                        String
-  contenido                        String
-  mensaje                          String
+  idMensaje                         Int    @id @default(autoincrement())
+  remitente                         String
+  contenido                         String
+  mensaje                           String
   solicitudContratacion_idSolicitud Int
 
   solicitud SolicitudContratacion @relation(fields: [solicitudContratacion_idSolicitud], references: [idSolicitud])
 }
 
 model FotoTrabajo {
-  idFoto                Int @id @default(autoincrement())
-  urlFoto               String
+  idFoto                    Int    @id @default(autoincrement())
+  urlFoto                   String
   prestamista_idPrestamista Int
 
   prestamista Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
 }
 
 model Aptitud {
-  idAptitud             Int @id @default(autoincrement())
-  nombre                String
+  idAptitud                 Int    @id @default(autoincrement())
+  nombre                    String
   prestamista_idPrestamista Int
 
   prestamista Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
 }
 
 model Experiencia {
-  idExperiencia         Int @id @default(autoincrement())
-  empresa               String?
-  puesto                String
-  inicio                Int
-  fin                   Int?
+  idExperiencia Int     @id @default(autoincrement())
+  empresa       String?
+  puesto        String
+  inicio        Int
+  fin           Int?
 
   prestamista_idPrestamista Int
-  prestamista Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
+  prestamista               Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
 }
 
 enum Disponibilidad {
