@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import cors from "cors";
-import { connectMongoDB } from "../../mongoose/mongo-connect";
+import { connectMongoDB } from "../config/mongoose/mongo-connect";
 
 interface Options {
   port: number;

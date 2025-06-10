@@ -1,7 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
 interface Message {
-  id : string;
   sender: string;
   receiver: string;
   timestamp: Date;
@@ -9,11 +8,6 @@ interface Message {
 }
 
 const messageSchema = new Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true
-  },
   sender: {
     type: String,
     required: true

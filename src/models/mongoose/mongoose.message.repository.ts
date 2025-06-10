@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import MessageModel from '../../../mongoose/msgSchema';
+import MessageModel from '../../config/mongoose/msgSchema';
 
 export const sendMessage = async (req : Request, res : Response) => {
 

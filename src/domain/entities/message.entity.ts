@@ -1,5 +1,7 @@
+import mongoose from 'mongoose';
+
 export interface MessageEntity {
-  id: string;
+  _id: mongoose.Types.ObjectId;
   sender: string;
   receiver: string;
   timestamp: Date;
