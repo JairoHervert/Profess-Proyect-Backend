@@ -33,3 +33,14 @@ Cambios realizados:
 
 
 Prueba de push en mi rama sin el untracked files
+
+
+
+// Al logearme copiar el token que me regresa la peticion y usarlo en barer token en el postman
+
+Comandos para iniciar el mongoDB de manera local:
+Iniciar el servicio:
+mongod
+
+MongoShell:
+mongosh
