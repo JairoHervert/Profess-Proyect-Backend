@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import { PrismaClientRepository } from '../../models/prisma/prisma.client.repository';
+import { PrismaPrestamistaRepository } from "../../models/prisma/prisma.prestamista.repository";
 import { CreateClientService } from '../services/Client/create-client.service';
 
 export class ClientController {
   private readonly createService = new CreateClientService(
     new PrismaClientRepository(),
+    new PrismaPrestamistaRepository()
   );
 
   private handleError = (error: unknown, res: Response) => {

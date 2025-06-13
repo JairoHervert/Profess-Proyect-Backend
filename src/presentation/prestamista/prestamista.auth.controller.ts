@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import { PrismaPrestamistaRepository } from "../../models/prisma/prisma.prestamista.repository";
+import { PrismaClientRepository } from "../../models/prisma/prisma.client.repository";
 import { CreatePrestamistaService } from "../services/Prestamista/create-prestamista.service";
 import { LoginPrestamistaService } from "../services/Prestamista/login-prestamista.service";
 
 export class PrestamistaAuthController {
   private readonly registerService = new CreatePrestamistaService(
     new PrismaPrestamistaRepository(),
+    new PrismaClientRepository()
   );
 
   private handleError = (error: unknown, res: Response) => {
