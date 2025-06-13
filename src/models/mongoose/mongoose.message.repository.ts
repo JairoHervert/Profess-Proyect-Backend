@@ -5,6 +5,8 @@ import MessageModel from '../../config/mongoose/msgSchema';
 
 export class MongooseMessageRepository implements MessageRepository {
   async create(data: CreateMessageDto): Promise<MessageEntity> {
+    // Consultar datos adicionales como el nombre del remitente y del destinatario
+    // en la base de datos SQL
     const message = new MessageModel(data);
     const savedMessage = await message.save();
 
@@ -72,6 +74,10 @@ export class MongooseMessageRepository implements MessageRepository {
   // Funciones nuevas agregadas durante el desarrollo
 
   async getUniqueChats(user: string): Promise<MessageEntity[]> {
+
+    // Antes de obtener los mensajes tendria que ir a consultar
+    // los demas datos en la base de datos sql 
+
     const messages = await MessageModel.aggregate([
       {
         $match: {
@@ -107,7 +113,7 @@ export class MongooseMessageRepository implements MessageRepository {
           content: '$lastMessage.content'
         }
       }
-    ]);
+    ]).sort({ timestamp: -1 });
 
     return messages.map(message => ({
       _id: message._id,

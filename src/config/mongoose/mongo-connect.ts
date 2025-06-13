@@ -8,7 +8,7 @@ export const connectMongoDB = async () => {
 
     console.log(`MongoDB Conectado en: ${uri}`);
   } catch (error) {
-    console.log('Error en la conexion a la base de datos');
+    console.log('Error en la conexion a la base de datos de MongoDB');
     console.log(error);
     process.exit(1);
   }

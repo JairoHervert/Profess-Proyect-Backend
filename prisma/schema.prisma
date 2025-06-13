@@ -16,6 +16,8 @@ model Categoria {
 model Cliente {
   idCliente    Int     @id @default(autoincrement())
   nombre       String
+  correo       String  @unique
+  contraseña   String
   tipoEntidad  String
   calificacion Int?
   telefono     String

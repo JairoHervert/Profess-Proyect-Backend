@@ -7,7 +7,7 @@ export class LoginPrestamistaService {
   constructor(private readonly repo: PrestamistaRepository) {}
 
   async execute(data: LoginPrestamistaDto) {
-    const exists = await this.repo.findByCorreo(data.correo);
+    const exists = await this.repo.findByCorreoInPrestamista(data.correo) || await this.repo.findByCorreoInClient(data.correo);
     if (!exists) {
       throw new Error("El correo no está registrado");
     }

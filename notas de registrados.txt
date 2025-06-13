@@ -1,0 +1,55 @@
+REGISTROS DE PRUEBAS
+
+clientes:
+{
+   "nombre": "Jesus Hervert",
+   "correo": "jesushervert@correo.com",
+   "contraseña": "12345",
+   "telefono": "123456789",
+   "tipoEntidad": "cliente",
+   "linkFoto": "uploadFiles/profilesImg/fotoJesusHervert.jpg"
+}
+{
+   "nombre": "Juan Perez",
+   "correo": "juanperez@correo.com",
+   "contraseña": "12345",
+   "telefono": "987654321",
+   "tipoEntidad": "cliente",
+   "linkFoto": "uploadFiles/profilesImg/fotoJuanPerez.jpg"
+}
+{
+   "nombre": "Maria Lopez",
+   "correo": "marialopez@correo.com",
+   "contraseña": "12345",
+   "telefono": "456789123",
+   "tipoEntidad": "cliente",
+   "linkFoto": "uploadFiles/profilesImg/fotoMariaLopez.jpg"
+}
+
+
+prestamistas:
+{
+   "nombre": "Aaron Olvera",
+   "correo": "aaronolvera@correo.com",
+   "contraseña": "12345",
+   "telefono": "321654987",
+   "tipoEntidad": "Desarrollador Backend",
+   "descripcion": "Desarrollador Backend con experiencia en Node.js y bases de datos.",
+   "linkFoto": "uploadFiles/profilesImg/fotoAaronOlvera.jpg"
+}
+{
+   "nombre": "Paola Reyes",
+   "correo": "paolareyes@correo.com",
+   "contraseña": "12345",
+   "telefono": "654321789",
+   "tipoEntidad": "Desarrollador Frontend",
+   "descripcion": "Desarrolladora Frontend especializada en React y diseño de interfaces.",
+   "linkFoto": "uploadFiles/profilesImg/fotoPaolaReyes.jpg"
+}
+{
+   "nombre": "Jairo Hervert",
+   "correo": "jairohervert@correo.com",
+   "contraseña": "12345",
+   "telefono": "789123456",
+   "tipoEntidad": "Desarrollador de Software"
+}
