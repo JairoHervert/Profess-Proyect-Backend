@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
 interface Message {
+  senderEmail: string;
+  receiverEmail: string;
   sender: string;
   receiver: string;
   timestamp: Date;
@@ -8,6 +10,14 @@ interface Message {
 }
 
 const messageSchema = new Schema({
+  senderEmail: {
+    type: String,
+    required: true
+  },
+  receiverEmail: {
+    type: String,
+    required: true
+  },
   sender: {
     type: String,
     required: true

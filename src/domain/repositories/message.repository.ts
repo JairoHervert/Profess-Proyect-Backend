@@ -3,11 +3,6 @@ import { MessageEntity } from '../entities/message.entity';
 
 export interface MessageRepository {
   create(data: CreateMessageDto): Promise<MessageEntity>;
-  findById(id: string): Promise<MessageEntity | null>;
-  findBySender(sender: string): Promise<MessageEntity[]>;
-  findByReceiver(receiver: string): Promise<MessageEntity[]>;
-  findBySenderAndReceiver(sender: string, receiver: string): Promise<MessageEntity[]>;
-
-  // Nuevas agregadas durante el desarrollo
-  getUniqueChats(user: string): Promise<MessageEntity[]>;
+  getUniqueChats(userEmail: string): Promise<MessageEntity[]>;
+  findBySenderAndReceiver(senderEmail: string, receiverEmail: string): Promise<MessageEntity[]>;
 }
