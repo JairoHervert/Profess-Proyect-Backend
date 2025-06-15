@@ -12,4 +12,4 @@ export const connectMongoDB = async () => {
     console.log(error);
     process.exit(1);
   }
-}
+};

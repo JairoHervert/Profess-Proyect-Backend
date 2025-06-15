@@ -7,7 +7,9 @@ import { ObtainChatService } from '../services/Messages/obtain-chat.service';
 export class MessagesChatController {
   // Instancias de los servicios
   private readonly createMessageService = new CreateMessageService(new MongooseMessageRepository());
-  private readonly obtainLastUserChatsService = new ObtainLastUserChatsService(new MongooseMessageRepository());
+  private readonly obtainLastUserChatsService = new ObtainLastUserChatsService(
+    new MongooseMessageRepository()
+  );
   private readonly obtainChatService = new ObtainChatService(new MongooseMessageRepository());
 
   // Manejo de errores
@@ -22,8 +24,8 @@ export class MessagesChatController {
   public sendMessage = (req: Request, res: Response) => {
     this.createMessageService
       .execute(req.body)
-      .then(async (message) => res.json(message))
-      .catch((error) => this.handleError(error, res));
+      .then(async message => res.json(message))
+      .catch(error => this.handleError(error, res));
   };
 
   // Metodo para obtener los ultimos chats de un usuario (iran en el menu de chats)
@@ -32,9 +34,9 @@ export class MessagesChatController {
 
     this.obtainLastUserChatsService
       .execute(sender)
-      .then(async (messages) => res.json(messages))
-      .catch((error) => this.handleError(error, res));
-  }
+      .then(async messages => res.json(messages))
+      .catch(error => this.handleError(error, res));
+  };
 
   // Metodo para obtener un chat entre dos usuarios
   public obtainOneChat = (req: Request, res: Response) => {
@@ -43,7 +45,7 @@ export class MessagesChatController {
 
     this.obtainChatService
       .execute(sender, receiver)
-      .then(async (messages) => res.json(messages))
-      .catch((error) => this.handleError(error, res));
-  }
+      .then(async messages => res.json(messages))
+      .catch(error => this.handleError(error, res));
+  };
 }

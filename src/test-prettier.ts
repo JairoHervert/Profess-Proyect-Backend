@@ -1,4 +1,4 @@
-const mensaje = "Hola mundo";
+const mensaje = 'Hola mundo';
 function mostrarMensaje(msj: string): void {
   console.log(msj);
 }

@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import { ServicioRepository } from "../../domain/repositories/servicio.repository";
-import { CreateServicioDto } from "../../domain/dtos/servicio/create-servicio.dto";
-import { ServicioEntity } from "../../domain/entities/servicio.entity";
+import { PrismaClient } from '@prisma/client';
+import { ServicioRepository } from '../../domain/repositories/servicio.repository';
+import { CreateServicioDto } from '../../domain/dtos/servicio/create-servicio.dto';
+import { ServicioEntity } from '../../domain/entities/servicio.entity';
 
 const prisma = new PrismaClient();
 

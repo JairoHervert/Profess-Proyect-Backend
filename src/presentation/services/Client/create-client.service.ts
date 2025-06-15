@@ -11,9 +11,11 @@ export class CreateClientService {
   ) {}
 
   async execute(data: CreateClientDto) {
-    const exists = await this.prestamistaRepo.findByCorreo(data.correo) || await this.clientRepo.findByCorreo(data.correo);
+    const exists =
+      (await this.prestamistaRepo.findByCorreo(data.correo)) ||
+      (await this.clientRepo.findByCorreo(data.correo));
     if (exists) {
-      throw new Error("El correo ya está en uso");
+      throw new Error('El correo ya está en uso');
     }
 
     const hashedPassword = bcryptAdapter.hash(data.contraseña);

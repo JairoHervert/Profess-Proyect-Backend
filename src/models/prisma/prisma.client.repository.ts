@@ -17,7 +17,7 @@ export class PrismaClientRepository implements ClientRepository {
       contraseña: client.contraseña,
       tipoEntidad: client.tipoEntidad,
       calificacion: client.calificacion ?? undefined,
-      linkFoto: client.linkFoto ?? undefined
+      linkFoto: client.linkFoto ?? undefined,
     };
   }
 
@@ -36,7 +36,7 @@ export class PrismaClientRepository implements ClientRepository {
       contraseña: client.contraseña,
       tipoEntidad: client.tipoEntidad,
       calificacion: client.calificacion ?? undefined,
-      linkFoto: client.linkFoto ?? undefined
+      linkFoto: client.linkFoto ?? undefined,
     };
   }
 }

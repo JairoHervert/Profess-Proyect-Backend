@@ -1,6 +1,6 @@
-import express, { Router } from "express";
-import cors from "cors";
-import { connectMongoDB } from "../config/mongoose/mongo-connect";
+import express, { Router } from 'express';
+import cors from 'cors';
+import { connectMongoDB } from '../config/mongoose/mongo-connect';
 
 interface Options {
   port: number;
@@ -17,7 +17,7 @@ export class Server {
   private readonly routes: Router;
 
   constructor(options: Options) {
-    const { port, routes, public_path = "public" } = options;
+    const { port, routes, public_path = 'public' } = options;
     this.port = port;
     this.publicPath = public_path;
     this.routes = routes;
@@ -27,10 +27,12 @@ export class Server {
     //* Middlewares
     this.app.use(express.json()); // raw
     this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
-    this.app.use(cors({
-      origin: "http://localhost:5173",
-      credentials: true,
-    }));
+    this.app.use(
+      cors({
+        origin: 'http://localhost:5173',
+        credentials: true,
+      })
+    );
     //* Public Folder
     this.app.use(express.static(this.publicPath));
 

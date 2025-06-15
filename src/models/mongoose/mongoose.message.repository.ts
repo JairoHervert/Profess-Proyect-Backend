@@ -19,12 +19,15 @@ export class MongooseMessageRepository implements MessageRepository {
     };
   }
 
-  async findBySenderAndReceiver(senderEmail: string, receiverEmail: string): Promise<MessageEntity[]> {
+  async findBySenderAndReceiver(
+    senderEmail: string,
+    receiverEmail: string
+  ): Promise<MessageEntity[]> {
     const messages = await MessageModel.find({
       $or: [
         { senderEmail, receiverEmail },
-        { senderEmail: receiverEmail, receiverEmail: senderEmail }
-      ]
+        { senderEmail: receiverEmail, receiverEmail: senderEmail },
+      ],
     }).sort({ timestamp: 1 });
 
     return messages.map(message => ({
@@ -42,11 +45,8 @@ export class MongooseMessageRepository implements MessageRepository {
     const messages = await MessageModel.aggregate([
       {
         $match: {
-          $or: [
-            { senderEmail: userEmail },
-            { receiverEmail: userEmail }
-          ]
-        }
+          $or: [{ senderEmail: userEmail }, { receiverEmail: userEmail }],
+        },
       },
       {
         $addFields: {
@@ -54,16 +54,16 @@ export class MongooseMessageRepository implements MessageRepository {
             $cond: {
               if: { $eq: ['$senderEmail', userEmail] },
               then: '$receiver',
-              else: '$sender'
-            }
-          }
-        }
+              else: '$sender',
+            },
+          },
+        },
       },
       {
         $group: {
           _id: '$otherUser',
-          lastMessage: { $last: '$$ROOT' }
-        }
+          lastMessage: { $last: '$$ROOT' },
+        },
       },
       {
         $project: {
@@ -71,9 +71,9 @@ export class MongooseMessageRepository implements MessageRepository {
           sender: '$lastMessage.sender',
           receiver: '$lastMessage.receiver',
           timestamp: '$lastMessage.timestamp',
-          content: '$lastMessage.content'
-        }
-      }
+          content: '$lastMessage.content',
+        },
+      },
     ]).sort({ timestamp: -1 });
 
     return messages.map(message => ({
@@ -86,5 +86,4 @@ export class MongooseMessageRepository implements MessageRepository {
       content: message.content,
     }));
   }
-
 }

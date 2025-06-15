@@ -12,28 +12,28 @@ interface Message {
 const messageSchema = new Schema({
   senderEmail: {
     type: String,
-    required: true
+    required: true,
   },
   receiverEmail: {
     type: String,
-    required: true
+    required: true,
   },
   sender: {
     type: String,
-    required: true
+    required: true,
   },
   receiver: {
     type: String,
-    required: true
+    required: true,
   },
   timestamp: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   content: {
     type: Schema.Types.Mixed,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const MessageModel = mongoose.model<Message>('Message', messageSchema);

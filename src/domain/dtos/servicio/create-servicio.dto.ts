@@ -35,7 +35,7 @@ export class CreateServicioDto {
     public readonly direccionLugar?: string,
     public readonly direccionReferencia?: string,
     public readonly tipoJornada?: string,
-    public readonly disponibilidad?: string,
+    public readonly disponibilidad?: string
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -68,7 +68,7 @@ export class CreateServicioDto {
       !fechaInicio ||
       !modalidadCobro
     ) {
-      return ["Faltan campos obligatorios", undefined];
+      return ['Faltan campos obligatorios', undefined];
     }
 
     const dto = new CreateServicioDto(
@@ -87,7 +87,7 @@ export class CreateServicioDto {
       direccionLugar ?? undefined,
       direccionReferencia ?? undefined,
       tipoJornada ?? undefined,
-      disponibilidad ?? undefined,
+      disponibilidad ?? undefined
     );
 
     return [undefined, dto];
