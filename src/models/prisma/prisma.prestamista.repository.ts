@@ -12,13 +12,15 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
     return {
       id: prestamista.idPrestamista,
       correo: prestamista.correo,
+      contraseña: prestamista.contraseña,
+      correoVerificado: prestamista.correoVerificado,
+      datosCompletos: prestamista.datosCompletos,
       telefono: prestamista.telefono ?? undefined,
-      tipoEntidad: prestamista.tipoEntidad,
+      tipoEntidad: prestamista.tipoEntidad ?? undefined,
       descripcion: prestamista.descripcion ?? undefined,
       linkFoto: prestamista.linkFoto ?? undefined,
       calificacion: prestamista.calificacion ?? undefined,
-      nombre: prestamista.nombre,
-      contraseña: prestamista.contraseña,
+      nombre: prestamista.nombre ?? undefined,
     };
   }
 
@@ -32,13 +34,15 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
     return {
       id: prestamista.idPrestamista,
       correo: prestamista.correo,
+      contraseña: prestamista.contraseña,
+      correoVerificado: prestamista.correoVerificado,
+      datosCompletos: prestamista.datosCompletos,
       telefono: prestamista.telefono ?? undefined,
-      tipoEntidad: prestamista.tipoEntidad,
+      tipoEntidad: prestamista.tipoEntidad ?? undefined,
       descripcion: prestamista.descripcion ?? undefined,
       linkFoto: prestamista.linkFoto ?? undefined,
       calificacion: prestamista.calificacion ?? undefined,
-      nombre: prestamista.nombre,
-      contraseña: prestamista.contraseña,
+      nombre: prestamista.nombre ?? undefined,
     };
   }
 }

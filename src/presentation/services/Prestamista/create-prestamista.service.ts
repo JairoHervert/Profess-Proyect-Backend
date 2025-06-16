@@ -26,13 +26,17 @@ export class CreatePrestamistaService {
     });
 
     const token = await JwtAdapter.generateToken({
-      prestamista_id: prestamista.id,
-      correo: prestamista.correo,
+      id: prestamista.id,
+      name: prestamista.nombre,
+      email: prestamista.correo,
+      role: 'prestamista',
     });
 
     return {
-      prestamista_id: prestamista.id,
-      correo: prestamista.correo,
+      id: prestamista.id,
+      name: prestamista.nombre,
+      email: prestamista.correo,
+      role: 'prestamista',
       token: token,
     };
   }

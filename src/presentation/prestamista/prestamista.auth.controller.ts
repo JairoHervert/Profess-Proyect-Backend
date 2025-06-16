@@ -29,7 +29,18 @@ export class PrestamistaAuthController {
 
     this.registerService
       .execute(req.body)
-      .then(async prestamista => res.json(prestamista))
+      // .then(async prestamista => res.json(prestamista))
+      .then(async ({ token, ...user }) => {
+        res
+          .cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60 * 24, // 1 día
+          })
+          .json(user);
+        // .json({ token, user });
+      })
       .catch(error => this.handleError(error, res));
   };
 
@@ -49,7 +60,17 @@ export class PrestamistaAuthController {
 
     loginService
       .execute({ correo, contraseña })
-      .then(async prestamista => res.json(prestamista))
+      // .then(async prestamista => res.json(prestamista))
+      .then(async ({ token, ...user }) => {
+        res
+          .cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60 * 24, // 1 día
+          })
+          .json(user);
+      })
       .catch(error => this.handleError(error, res));
   };
 }

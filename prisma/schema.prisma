@@ -29,14 +29,15 @@ model Cliente {
 model Prestamista {
   idPrestamista    Int     @id @default(autoincrement())
   correo           String  @unique
+  contraseña       String
+  correoVerificado Boolean @default(false)
+  datosCompletos   Boolean @default(false)
+  nombre           String?
   telefono         String?
-  contraseña      String
-  tipoEntidad      String
+  tipoEntidad      String?
   descripcion      String?
   linkFoto         String?
   calificacion     Int?
-  nombre           String
-  correoVerificado Boolean @default(false)
 
   servicios    Servicio[]
   fotos        FotoTrabajo[]

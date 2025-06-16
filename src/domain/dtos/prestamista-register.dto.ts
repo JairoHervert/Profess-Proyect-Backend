@@ -1,9 +1,9 @@
 export interface CreatePrestamistaDto {
   correo: string;
-  telefono?: string;
   contraseña: string;
-  tipoEntidad: string;
+  nombre?: string;
+  telefono?: string;
+  tipoEntidad?: string;
   descripcion?: string;
   linkFoto?: string;
-  nombre: string;
 }
