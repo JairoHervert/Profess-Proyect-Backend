@@ -3,6 +3,8 @@ import { PrismaPrestamistaRepository } from '../../models/prisma/prisma.prestami
 import { PrismaClientRepository } from '../../models/prisma/prisma.client.repository';
 import { CreatePrestamistaService } from '../services/Prestamista/create-prestamista.service';
 import { LoginPrestamistaService } from '../services/Prestamista/login-prestamista.service';
+import { RegisterPrestamistaGoogleService } from '../services/Prestamista/register-prestamista-google.service';
+import { LoginPrestamistaGoogleService } from '../services/Prestamista/login-prestamista-google.service';
 
 export class PrestamistaAuthController {
   private readonly registerService = new CreatePrestamistaService(
@@ -10,7 +12,7 @@ export class PrestamistaAuthController {
     new PrismaClientRepository()
   );
 
-  private readonly registerGoogleService = new CreatePrestamistaService(
+  private readonly registerGoogleService = new RegisterPrestamistaGoogleService(
     new PrismaPrestamistaRepository(),
     new PrismaClientRepository()
   );
@@ -29,7 +31,6 @@ export class PrestamistaAuthController {
 
     this.registerService
       .execute(req.body)
-      // .then(async prestamista => res.json(prestamista))
       .then(async ({ token, ...user }) => {
         res
           .cookie('token', token, {
@@ -39,7 +40,6 @@ export class PrestamistaAuthController {
             maxAge: 1000 * 60 * 60 * 24, // 1 día
           })
           .json(user);
-        // .json({ token, user });
       })
       .catch(error => this.handleError(error, res));
   };
@@ -47,7 +47,16 @@ export class PrestamistaAuthController {
   public registerGooglePrestamista = async (req: Request, res: Response) => {
     this.registerGoogleService
       .execute(req.body)
-      .then(async prestamista => res.json(prestamista))
+      .then(async ({ token, ...user }) => {
+        res
+          .cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60 * 24, // 1 día
+          })
+          .json(user);
+      })
       .catch(error => this.handleError(error, res));
   };
 
@@ -61,6 +70,27 @@ export class PrestamistaAuthController {
     loginService
       .execute({ correo, contraseña })
       // .then(async prestamista => res.json(prestamista))
+      .then(async ({ token, ...user }) => {
+        res
+          .cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60 * 24, // 1 día
+          })
+          .json(user);
+      })
+      .catch(error => this.handleError(error, res));
+  };
+
+  public loginPrestamistaGoogle = async (req: Request, res: Response) => {
+    const loginService = new LoginPrestamistaGoogleService(
+      new PrismaPrestamistaRepository(),
+      new PrismaClientRepository()
+    );
+
+    loginService
+      .execute(req.body)
       .then(async ({ token, ...user }) => {
         res
           .cookie('token', token, {
