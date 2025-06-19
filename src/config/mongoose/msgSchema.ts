@@ -3,8 +3,10 @@ import mongoose, { Schema } from 'mongoose';
 interface Message {
   senderEmail: string;
   receiverEmail: string;
-  sender: string;
-  receiver: string;
+  senderName: string;
+  receiverName: string;
+  senderPathProfilePicture?: string;
+  receiverPathProfilePicture?: string;
   timestamp: Date;
   content: string | { filename: string; filepath: string };
 }
@@ -18,13 +20,19 @@ const messageSchema = new Schema({
     type: String,
     required: true,
   },
-  sender: {
+  senderName: {
     type: String,
-    required: true,
   },
-  receiver: {
+  receiverName: {
     type: String,
-    required: true,
+  },
+  senderPathProfilePicture: {
+    type: String,
+    default: '',
+  },
+  receiverPathProfilePicture: {
+    type: String,
+    default: '',
   },
   timestamp: {
     type: Date,

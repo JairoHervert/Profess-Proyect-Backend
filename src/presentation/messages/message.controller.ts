@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { PrismaPrestamistaRepository } from '../../models/prisma/prisma.prestamista.repository';
+import { PrismaClientRepository } from '../../models/prisma/prisma.client.repository';
 import { MongooseMessageRepository } from '../../models/mongoose/mongoose.message.repository';
 import { CreateMessageService } from '../services/Messages/create-message.service';
 import { ObtainLastUserChatsService } from '../services/Messages/obtain-last-user-chats.service';
@@ -6,10 +8,12 @@ import { ObtainChatService } from '../services/Messages/obtain-chat.service';
 
 export class MessagesChatController {
   // Instancias de los servicios
-  private readonly createMessageService = new CreateMessageService(new MongooseMessageRepository());
-  private readonly obtainLastUserChatsService = new ObtainLastUserChatsService(
-    new MongooseMessageRepository()
+  private readonly createMessageService = new CreateMessageService(
+    new MongooseMessageRepository(),
+    new PrismaPrestamistaRepository(),
+    new PrismaClientRepository()
   );
+  private readonly obtainLastUserChatsService = new ObtainLastUserChatsService(new MongooseMessageRepository());
   private readonly obtainChatService = new ObtainChatService(new MongooseMessageRepository());
 
   // Manejo de errores
@@ -30,21 +34,21 @@ export class MessagesChatController {
 
   // Metodo para obtener los ultimos chats de un usuario (iran en el menu de chats)
   public obtainLastUserChats = (req: Request, res: Response) => {
-    const sender = req.params.sender;
+    const senderEmail = req.params.senderemail;
 
     this.obtainLastUserChatsService
-      .execute(sender)
+      .execute(senderEmail)
       .then(async messages => res.json(messages))
       .catch(error => this.handleError(error, res));
   };
 
   // Metodo para obtener un chat entre dos usuarios
   public obtainOneChat = (req: Request, res: Response) => {
-    const sender = req.params.sender;
-    const receiver = req.params.receiver;
+    const senderEmail = req.params.senderemail;
+    const receiverEmail = req.params.receiveremail;
 
     this.obtainChatService
-      .execute(sender, receiver)
+      .execute(senderEmail, receiverEmail)
       .then(async messages => res.json(messages))
       .catch(error => this.handleError(error, res));
   };

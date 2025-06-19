@@ -12,8 +12,10 @@ export class MongooseMessageRepository implements MessageRepository {
       _id: savedMessage._id,
       senderEmail: savedMessage.senderEmail,
       receiverEmail: savedMessage.receiverEmail,
-      sender: savedMessage.sender,
-      receiver: savedMessage.receiver,
+      senderName: savedMessage.senderName,
+      receiverName: savedMessage.receiverName,
+      senderPathProfilePicture: savedMessage.senderPathProfilePicture,
+      receiverPathProfilePicture: savedMessage.receiverPathProfilePicture,
       timestamp: savedMessage.timestamp,
       content: savedMessage.content,
     };
@@ -34,8 +36,10 @@ export class MongooseMessageRepository implements MessageRepository {
       _id: message._id,
       senderEmail: message.senderEmail,
       receiverEmail: message.receiverEmail,
-      sender: message.sender,
-      receiver: message.receiver,
+      senderName: message.senderName,
+      receiverName: message.receiverName,
+      senderPathProfilePicture: message.senderPathProfilePicture,
+      receiverPathProfilePicture: message.receiverPathProfilePicture,
       timestamp: message.timestamp,
       content: message.content,
     }));
@@ -45,7 +49,10 @@ export class MongooseMessageRepository implements MessageRepository {
     const messages = await MessageModel.aggregate([
       {
         $match: {
-          $or: [{ senderEmail: userEmail }, { receiverEmail: userEmail }],
+          $or: [
+            { senderEmail: userEmail },
+            { receiverEmail: userEmail },
+          ],
         },
       },
       {
@@ -53,35 +60,47 @@ export class MongooseMessageRepository implements MessageRepository {
           otherUser: {
             $cond: {
               if: { $eq: ['$senderEmail', userEmail] },
-              then: '$receiver',
-              else: '$sender',
+              then: '$receiverEmail',
+              else: '$senderEmail',
             },
           },
         },
       },
       {
+        $sort: { timestamp: -1 },
+      },
+      {
         $group: {
           _id: '$otherUser',
-          lastMessage: { $last: '$$ROOT' },
+          lastMessage: { $first: '$$ROOT' },
         },
       },
       {
+        $replaceRoot: { newRoot: '$lastMessage' },
+      },
+      {
         $project: {
-          _id: 0,
-          sender: '$lastMessage.sender',
-          receiver: '$lastMessage.receiver',
-          timestamp: '$lastMessage.timestamp',
-          content: '$lastMessage.content',
+          _id: 1,
+          senderEmail: 1,
+          receiverEmail: 1,
+          senderName: 1,
+          receiverName: 1,
+          senderPathProfilePicture: 1,
+          receiverPathProfilePicture: 1,
+          timestamp: 1,
+          content: 1,
         },
       },
     ]).sort({ timestamp: -1 });
 
     return messages.map(message => ({
       _id: message._id,
-      senderEmail: message.sender,
-      receiverEmail: message.receiver,
-      sender: message.sender,
-      receiver: message.receiver,
+      senderEmail: message.senderEmail,
+      receiverEmail: message.receiverEmail,
+      senderName: message.senderName,
+      receiverName: message.receiverName,
+      senderPathProfilePicture: message.senderPathProfilePicture,
+      receiverPathProfilePicture: message.receiverPathProfilePicture,
       timestamp: message.timestamp,
       content: message.content,
     }));
