@@ -14,6 +14,8 @@ export class MongooseMessageRepository implements MessageRepository {
       receiverEmail: savedMessage.receiverEmail,
       senderName: savedMessage.senderName,
       receiverName: savedMessage.receiverName,
+      senderOccupation: savedMessage.senderOccupation,
+      receiverOccupation: savedMessage.receiverOccupation,
       senderPathProfilePicture: savedMessage.senderPathProfilePicture,
       receiverPathProfilePicture: savedMessage.receiverPathProfilePicture,
       timestamp: savedMessage.timestamp,
@@ -38,6 +40,8 @@ export class MongooseMessageRepository implements MessageRepository {
       receiverEmail: message.receiverEmail,
       senderName: message.senderName,
       receiverName: message.receiverName,
+      senderOccupation: message.senderOccupation,
+      receiverOccupation: message.receiverOccupation,
       senderPathProfilePicture: message.senderPathProfilePicture,
       receiverPathProfilePicture: message.receiverPathProfilePicture,
       timestamp: message.timestamp,
@@ -45,7 +49,7 @@ export class MongooseMessageRepository implements MessageRepository {
     }));
   }
 
-  async getUniqueChats(userEmail: string): Promise<MessageEntity[]> {
+  async getOnlyLastChats(userEmail: string): Promise<MessageEntity[]> {
     const messages = await MessageModel.aggregate([
       {
         $match: {
@@ -85,6 +89,8 @@ export class MongooseMessageRepository implements MessageRepository {
           receiverEmail: 1,
           senderName: 1,
           receiverName: 1,
+          senderOccupation: 1,
+          receiverOccupation: 1,
           senderPathProfilePicture: 1,
           receiverPathProfilePicture: 1,
           timestamp: 1,
@@ -99,10 +105,52 @@ export class MongooseMessageRepository implements MessageRepository {
       receiverEmail: message.receiverEmail,
       senderName: message.senderName,
       receiverName: message.receiverName,
+      senderOccupation: message.senderOccupation,
+      receiverOccupation: message.receiverOccupation,
       senderPathProfilePicture: message.senderPathProfilePicture,
       receiverPathProfilePicture: message.receiverPathProfilePicture,
       timestamp: message.timestamp,
       content: message.content,
     }));
+  }
+
+  // Metodo para obtener solo las listas de archivos enviados entre dos usuarios
+  async getOnlySharedFiles(senderEmail: string, receiverEmail: string): Promise<string[]> {
+    try {
+      const messages = await MessageModel.aggregate([
+        {
+          $match: {
+            $or: [
+              { senderEmail, receiverEmail },
+              { senderEmail: receiverEmail, receiverEmail: senderEmail },
+            ],
+          },
+        },
+        {
+          $match: {
+            'content.filename': { $exists: true },
+            'content.filepath': { $exists: true },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            fileLink: {
+              $concat: [
+                '/root', // debo cambiar esto por la ruta base qeue me digan
+                '$content.filepath',
+                '/',
+                '$content.filename',
+              ],
+            },
+          },
+        },
+      ]);
+
+      return messages.map((message) => message.fileLink);
+    } catch (error) {
+      console.error('Error al obtener los enlaces de archivos compartidos:', error);
+      return [];
+    }
   }
 }

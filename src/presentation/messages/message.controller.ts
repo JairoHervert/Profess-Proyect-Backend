@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PrismaPrestamistaRepository } from '../../models/prisma/prisma.prestamista.repository';
 import { PrismaClientRepository } from '../../models/prisma/prisma.client.repository';
+import { ObtainContactInfoService } from '../services/Messages/obtain-contact-info.service';
 import { MongooseMessageRepository } from '../../models/mongoose/mongoose.message.repository';
 import { CreateMessageService } from '../services/Messages/create-message.service';
 import { ObtainLastUserChatsService } from '../services/Messages/obtain-last-user-chats.service';
@@ -15,6 +16,12 @@ export class MessagesChatController {
   );
   private readonly obtainLastUserChatsService = new ObtainLastUserChatsService(new MongooseMessageRepository());
   private readonly obtainChatService = new ObtainChatService(new MongooseMessageRepository());
+
+  private readonly obtainContactInfoService = new ObtainContactInfoService(
+    new PrismaPrestamistaRepository(),
+    new PrismaClientRepository(),
+    new MongooseMessageRepository(),
+  );
 
   // Manejo de errores
   private handleError = (error: unknown, res: Response) => {
@@ -50,6 +57,17 @@ export class MessagesChatController {
     this.obtainChatService
       .execute(senderEmail, receiverEmail)
       .then(async messages => res.json(messages))
+      .catch(error => this.handleError(error, res));
+  };
+
+  // Metodo para obtener los datos de perfil de un usuario
+  public obtainUserProfile = (req: Request, res: Response) => {
+    const senderEmail = req.params.senderemail;
+    const receiverEmail = req.params.receiveremail;
+
+    this.obtainContactInfoService
+      .execute(senderEmail, receiverEmail)
+      .then(async contactInfo => res.json(contactInfo))
       .catch(error => this.handleError(error, res));
   };
 }

@@ -28,6 +28,8 @@ export class CreateMessageService {
       ...data,
       senderName: senderData.nombre || '',
       receiverName: receiverData.nombre || '',
+      senderOccupation: senderData.tipoEntidad || '',
+      receiverOccupation: receiverData.tipoEntidad || '',
       senderPathProfilePicture: senderData.linkFoto,
       receiverPathProfilePicture: receiverData.linkFoto
     };
