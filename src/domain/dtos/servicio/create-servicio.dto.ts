@@ -1,7 +1,7 @@
 export class CreateServicioDto {
   constructor(
     public readonly prestamistaId: number,
-    public readonly categoriaId: number,
+    public readonly categoria: string,
     public readonly titulo: string,
     public readonly descripcion: string,
     public readonly direccion: string,
@@ -9,14 +9,15 @@ export class CreateServicioDto {
     public readonly zona: string,
     public readonly modalidades: string,
     public readonly fechaInicio: Date,
-    public readonly disponibilidad?: string
+    public readonly disponibilidad?: string,
+    public idCategoria?: number
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static create(object: { [key: string]: any }): [string?, CreateServicioDto?] {
     const {
       prestamistaId,
-      categoriaId,
+      categoria,
       titulo,
       descripcion,
       direccion,
@@ -28,7 +29,7 @@ export class CreateServicioDto {
 
     if (
       !prestamistaId ||
-      !categoriaId ||
+      !categoria ||
       !titulo ||
       !descripcion ||
       !direccion ||
@@ -42,7 +43,7 @@ export class CreateServicioDto {
 
     const dto = new CreateServicioDto(
       prestamistaId,
-      categoriaId,
+      categoria,
       titulo,
       descripcion,
       direccion,

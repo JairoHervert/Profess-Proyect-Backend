@@ -18,7 +18,7 @@ export class PrismaServicioRepository implements ServicioRepository {
         fechaInicio: CreateServicioDto.fechaInicio,
         disponibilidad: CreateServicioDto.disponibilidad,
         prestamista_idPrestamista: CreateServicioDto.prestamistaId,
-        categoria_idCategoria: CreateServicioDto.categoriaId,
+        categoria_idCategoria: CreateServicioDto.idCategoria ?? 5,
       },
     });
     // Convertir el resultado a ServicioEntity si es necesario

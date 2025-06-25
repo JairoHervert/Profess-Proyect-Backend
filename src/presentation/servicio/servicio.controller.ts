@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
 import { PrismaServicioRepository } from '../../models/prisma/prisma.servicio.repository';
+import { PrismaCategoryRepository } from '../../models/prisma/prisma.category.repository';
 import { CreateServicioService } from '../services/Servicio/create-servicio.service';
 import { CreateServicioDto } from '../../domain/dtos/servicio/create-servicio.dto';
 
 export class ServicioController {
-  private readonly createService = new CreateServicioService(new PrismaServicioRepository());
+  private readonly createService = new CreateServicioService(
+    new PrismaServicioRepository(),
+    new PrismaCategoryRepository()
+  );
 
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof Error) {
