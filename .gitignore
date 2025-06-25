@@ -35,9 +35,3 @@ coverage/
 .idea/
 *.sqlite
 *.sqlite-journal
-
-# Temporal
-src/presentation/services/Prestamista/verificar-correo.service.ts
-src/presentation/services/Prestamista/email.service.ts
-src/domain/repositories/prestamista.repository.ts
-src/presentation/services/Prestamista/registrar-prestamista.service.ts
