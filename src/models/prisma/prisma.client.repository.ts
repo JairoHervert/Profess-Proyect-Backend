@@ -7,17 +7,20 @@ const prisma = new PrismaClient();
 
 export class PrismaClientRepository implements ClientRepository {
   async create(data: CreateClientDto): Promise<ClientEntity> {
-    const client = await prisma.cliente.create({ data });
+    const cliente = await prisma.cliente.create({ data });
 
     return {
-      id: client.idCliente,
-      nombre: client.nombre,
-      correo: client.correo,
-      telefono: client.telefono,
-      contraseña: client.contraseña,
-      tipoEntidad: client.tipoEntidad,
-      calificacion: client.calificacion ?? undefined,
-      linkFoto: client.linkFoto ?? undefined,
+      id: cliente.idCliente,
+      correo: cliente.correo,
+      contraseña: cliente.contraseña,
+      correoVerificado: cliente.correoVerificado,
+      datosCompletos: cliente.datosCompletos,
+      telefono: cliente.telefono ?? undefined,
+      tipoEntidad: cliente.tipoEntidad ?? undefined,
+      descripcion: cliente.descripcion ?? undefined,
+      linkFoto: cliente.linkFoto ?? undefined,
+      calificacion: cliente.calificacion ?? undefined,
+      nombre: cliente.nombre ?? undefined,
     };
   }
 
@@ -30,13 +33,16 @@ export class PrismaClientRepository implements ClientRepository {
 
     return {
       id: client.idCliente,
-      nombre: client.nombre,
       correo: client.correo,
-      telefono: client.telefono,
       contraseña: client.contraseña,
-      tipoEntidad: client.tipoEntidad,
-      calificacion: client.calificacion ?? undefined,
+      correoVerificado: client.correoVerificado,
+      datosCompletos: client.datosCompletos,
+      telefono: client.telefono ?? undefined,
+      tipoEntidad: client.tipoEntidad ?? undefined,
+      descripcion: client.descripcion ?? undefined,
       linkFoto: client.linkFoto ?? undefined,
+      calificacion: client.calificacion ?? undefined,
+      nombre: client.nombre ?? undefined,
     };
   }
 }

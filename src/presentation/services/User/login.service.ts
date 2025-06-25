@@ -1,32 +1,18 @@
 import { PrestamistaRepository } from '../../../domain/repositories/prestamista.repository';
 import { ClientRepository } from '../../../domain/repositories/client.repository';
+import { LoginUserDto } from '../../../domain/dtos/user-login.dto';
 import { JwtAdapter } from '../../../config/jwt.adapter';
-import axios from 'axios';
+import { bcryptAdapter } from '../../../config/bcrypt.adapter';
 
-export class LoginPrestamistaGoogleService {
+export class LoginService {
   constructor(
     private readonly prestamistaRepo: PrestamistaRepository,
     private readonly clientRepo: ClientRepository
   ) {}
 
-  async execute(data: { accessToken: string }) {
-    const userInfo = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
-      headers: {
-        Authorization: `Bearer ${data.accessToken}`,
-      },
-    });
-    console.log('User info from Google:', userInfo.data);
-    const { email } = userInfo.data;
-    console.log('Email from Google:', email);
-
-    // const exists =
-    //   (await this.prestamistaRepo.findByCorreo(email)) ||
-    //   (await this.clientRepo.findByCorreo(email));
-    // if (!exists) {
-    //   throw new Error('El correo no está registrado');
-    // }
-    const existsPrestamista = await this.prestamistaRepo.findByCorreo(email);
-    const existsClient = await this.clientRepo.findByCorreo(email);
+  async execute(data: LoginUserDto) {
+    const existsPrestamista = await this.prestamistaRepo.findByCorreo(data.correo);
+    const existsClient = await this.clientRepo.findByCorreo(data.correo);
     const exists = existsPrestamista || existsClient;
 
     if (!exists) {
@@ -37,7 +23,11 @@ export class LoginPrestamistaGoogleService {
     if (!existsPrestamista) role = 'cliente';
     else role = 'prestamista';
 
-    // No se requiere contraseña para el login con Google
+    const isPasswordValid = bcryptAdapter.compare(data.contraseña, exists.contraseña);
+
+    if (!isPasswordValid) {
+      throw new Error('Contraseña incorrecta');
+    }
 
     const token = await JwtAdapter.generateToken({
       id: exists.id,

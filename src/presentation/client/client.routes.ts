@@ -8,6 +8,7 @@ export class ClientRoutes {
     const controller = new ClientController();
 
     router.post('/register', controller.registerClient);
+    router.post('/register-google', controller.registerGoogleClient);
     // router.get('/find/:correo', [AuthMiddleware.validateJWT], controller.findClientByCorreo);
 
     return router;

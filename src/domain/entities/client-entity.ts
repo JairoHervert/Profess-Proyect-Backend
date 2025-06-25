@@ -1,10 +1,13 @@
 export interface ClientEntity {
   id: number;
-  nombre: string;
   correo: string;
   contraseña: string;
-  telefono: string;
-  tipoEntidad: string;
+  correoVerificado: boolean;
+  datosCompletos: boolean;
+  nombre?: string;
+  telefono?: string;
+  tipoEntidad?: string;
+  descripcion?: string;
   linkFoto?: string;
   calificacion?: number;
 }

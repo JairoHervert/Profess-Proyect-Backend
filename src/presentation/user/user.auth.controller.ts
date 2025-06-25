@@ -1,20 +1,10 @@
 import { Request, Response } from 'express';
-import { PrismaClientRepository } from '../../models/prisma/prisma.client.repository';
 import { PrismaPrestamistaRepository } from '../../models/prisma/prisma.prestamista.repository';
-import { CreateClientService } from '../services/Client/create-client.service';
-import { RegisterGoogleClientService } from '../services/Client/register-cliente-google.service';
+import { PrismaClientRepository } from '../../models/prisma/prisma.client.repository';
+import { LoginService } from '../services/User/login.service';
+import { LoginGoogleService } from '../services/User/login-google.service';
 
-export class ClientController {
-  private readonly createService = new CreateClientService(
-    new PrismaClientRepository(),
-    new PrismaPrestamistaRepository()
-  );
-
-  private readonly registerGoogleService = new RegisterGoogleClientService(
-    new PrismaClientRepository(),
-    new PrismaPrestamistaRepository()
-  );
-
+export class UserAuthController {
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof Error) {
       return res.status(400).json({ error: error.message });
@@ -22,9 +12,16 @@ export class ClientController {
     return res.status(500).json({ error: 'Internal server error' });
   };
 
-  public registerClient = (req: Request, res: Response) => {
-    this.createService
-      .execute(req.body)
+  public login = (req: Request, res: Response) => {
+    const { correo, contraseña } = req.body;
+    const loginService = new LoginService(
+      new PrismaPrestamistaRepository(),
+      new PrismaClientRepository()
+    );
+
+    loginService
+      .execute({ correo, contraseña })
+      // .then(async prestamista => res.json(prestamista))
       .then(async ({ token, ...user }) => {
         res
           .cookie('token', token, {
@@ -38,8 +35,13 @@ export class ClientController {
       .catch(error => this.handleError(error, res));
   };
 
-  public registerGoogleClient = async (req: Request, res: Response) => {
-    this.registerGoogleService
+  public loginGoogle = async (req: Request, res: Response) => {
+    const loginService = new LoginGoogleService(
+      new PrismaPrestamistaRepository(),
+      new PrismaClientRepository()
+    );
+
+    loginService
       .execute(req.body)
       .then(async ({ token, ...user }) => {
         res

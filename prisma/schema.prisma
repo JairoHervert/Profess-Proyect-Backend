@@ -15,13 +15,16 @@ model Categoria {
 
 model Cliente {
   idCliente    Int     @id @default(autoincrement())
-  nombre       String
   correo       String  @unique
   contraseña   String
-  tipoEntidad  String
-  calificacion Int?
-  telefono     String
+  correoVerificado Boolean @default(false)
+  datosCompletos   Boolean @default(false)
+  nombre       String?
+  telefono     String?
+  tipoEntidad  String?
+  descripcion  String?
   linkFoto     String?
+  calificacion Int?
 
   solicitudes SolicitudContratacion[] //
 }

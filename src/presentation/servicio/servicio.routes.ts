@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ServicioController } from './servicio.controller';
-import { AuthMiddleware } from '../middleware/prestamista.auth.middleware';
+import { AuthMiddleware } from '../middleware/prestamista.auth.middleware.cookies';
 
 export class ServicioRoutes {
   static get routes(): Router {
