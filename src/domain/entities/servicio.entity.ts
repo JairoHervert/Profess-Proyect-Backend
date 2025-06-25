@@ -4,17 +4,11 @@ export interface ServicioEntity {
   id: number;
   titulo: string;
   descripcion: string;
+  direccion: string;
+  garantia: string;
   zona: string;
-  precio: number;
-  fechaInicio: string;
-  // fechaInicio: Date;
+  modalidades: string;
   createdAt: Date;
-  modalidadCobro: string;
-  fechaFin?: Date;
-  incluyeMateriales?: boolean;
-  ofreceGarantia?: boolean;
-  direccionLugar?: string;
-  direccionReferencia?: string;
-  tipoJornada?: string;
+  fechaInicio: Date;
   disponibilidad?: string;
 }

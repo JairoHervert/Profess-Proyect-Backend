@@ -52,10 +52,13 @@ model Servicio {
   idServicio     Int             @id @default(autoincrement())
   titulo         String
   descripcion    String
+  direccion      String
+  garantia       String          @default("No disponible")
   zona           String
-  precio         Int
-  fecha          DateTime        @default(now())
-  disponibilidad Disponibilidad?
+  modalidades    String          @default("No disponible")
+  createdAt      DateTime        @default(now())
+  fechaInicio          DateTime        @default(now())
+  disponibilidad String?
 
   prestamista_idPrestamista Int
   categoria_idCategoria     Int

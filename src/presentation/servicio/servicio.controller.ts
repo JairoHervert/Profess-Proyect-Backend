@@ -14,12 +14,12 @@ export class ServicioController {
   };
 
   public createServicio = (req: Request, res: Response) => {
-    const [error, healthCreateDto] = CreateServicioDto.create(req.body);
+    const [error, serviceCreateDto] = CreateServicioDto.create(req.body);
 
     if (error) return res.status(400).json({ error });
 
     this.createService
-      .execute(healthCreateDto!)
+      .execute(serviceCreateDto!)
       .then(servicio => res.status(201).json(servicio))
       .catch(error => this.handleError(error, res));
   };
