@@ -15,4 +15,5 @@ export interface PrestamistaEntity {
   preferenciasPago?: string;
   horarios?: string;
   redesSociales?: string;
+  tipoCuenta?: string;
 }

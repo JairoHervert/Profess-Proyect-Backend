@@ -5,7 +5,7 @@ export class CompleteDataDto {
     public readonly nombre?: string,
     public readonly telefono?: string,
     public readonly telefonoSecundario?: string,
-    public readonly tipoEntidad?: string,
+    public readonly tipoCuenta?: string,
     public readonly descripcion?: string,
     public readonly linkFoto?: string,
     public readonly fechaNacimiento?: Date,
@@ -22,7 +22,7 @@ export class CompleteDataDto {
       nombre,
       telefono,
       telefonoSecundario,
-      tipoEntidad,
+      tipoCuenta,
       descripcion,
       linkFoto,
       fechaNacimiento,
@@ -38,7 +38,7 @@ export class CompleteDataDto {
       !telefono ||
       !descripcion ||
       !linkFoto ||
-      !tipoEntidad ||
+      !tipoCuenta ||
       !fechaNacimiento ||
       !preferenciasPago ||
       !horarios
@@ -52,7 +52,7 @@ export class CompleteDataDto {
       nombre ?? undefined,
       telefono ?? undefined,
       telefonoSecundario ?? undefined,
-      tipoEntidad ?? undefined,
+      tipoCuenta ?? undefined,
       descripcion ?? undefined,
       linkFoto ?? undefined,
       fechaNacimiento ?? undefined,

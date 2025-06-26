@@ -46,6 +46,7 @@ model Prestamista {
   preferenciasPago   String?
   horarios           String?
   redesSociales      String?
+  tipoCuenta         String?
 
   servicios    Servicio[]
   fotos        FotoTrabajo[]
