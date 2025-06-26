@@ -13,8 +13,7 @@ export class CreateServicioService {
     let category;
     try {
       category = await this.categoryRepo.get(data.categoria);
-    }
-    catch (error) {
+    } catch (error) {
       throw new Error(`Error al obtener la categoría ${data.categoria}: ${error}`);
     }
     data.idCategoria = category.idCategoria;
@@ -22,6 +21,7 @@ export class CreateServicioService {
     if (!servicio) {
       throw new Error('Error al crear el servicio');
     }
+    console.log('Servicio creado:', servicio);
     return {
       servicio,
     };

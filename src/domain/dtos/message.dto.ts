@@ -10,7 +10,7 @@ export interface CreateMessageDto {
 
   senderPathProfilePicture?: string;
   receiverPathProfilePicture?: string;
-  
+
   timestamp: Date;
   content: string | { filename: string; filepath: string };
 }

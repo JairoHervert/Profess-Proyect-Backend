@@ -15,14 +15,16 @@ export class ObtainContactInfoService {
     }
 
     // Buscar los datos del remitente y del destinatario en las bases de datos SQL
-    const receiverData = await this.prestamistaRepo.findByCorreo(receiverEmail) || await this.clientRepo.findByCorreo(receiverEmail);
+    const receiverData =
+      (await this.prestamistaRepo.findByCorreo(receiverEmail)) ||
+      (await this.clientRepo.findByCorreo(receiverEmail));
     if (!receiverData) {
       throw new Error('El destinatario no está registrado');
     }
 
     // Obtener los archivos compartidos en el chat entre el remitente y el destinatario
     const sharedFiles = await this.messageRepo.getOnlySharedFiles(senderEmail, receiverEmail);
-    
+
     return {
       id: receiverData.id || '',
       contactName: receiverData.nombre || '',

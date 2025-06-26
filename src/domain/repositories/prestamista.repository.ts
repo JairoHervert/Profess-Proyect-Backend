@@ -1,5 +1,5 @@
-import { CreatePrestamistaDto } from "../dtos/prestamista-register.dto";
-import { PrestamistaEntity } from "../entities/prestamista.entity";
+import { CreatePrestamistaDto } from '../dtos/prestamista-register.dto';
+import { PrestamistaEntity } from '../entities/prestamista.entity';
 
 export interface PrestamistaRepository {
   create(data: CreatePrestamistaDto): Promise<PrestamistaEntity>;

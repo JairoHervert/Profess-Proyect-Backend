@@ -11,6 +11,7 @@ export class ServicioController {
   );
 
   private handleError = (error: unknown, res: Response) => {
+    console.error('Error in ServicioController:', error);
     if (error instanceof Error) {
       return res.status(400).json({ error: error.message });
     }
@@ -19,7 +20,6 @@ export class ServicioController {
 
   public createServicio = (req: Request, res: Response) => {
     const [error, serviceCreateDto] = CreateServicioDto.create(req.body);
-
     if (error) return res.status(400).json({ error });
 
     this.createService

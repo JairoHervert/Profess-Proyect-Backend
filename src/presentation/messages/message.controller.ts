@@ -14,13 +14,15 @@ export class MessagesChatController {
     new PrismaPrestamistaRepository(),
     new PrismaClientRepository()
   );
-  private readonly obtainLastUserChatsService = new ObtainLastUserChatsService(new MongooseMessageRepository());
+  private readonly obtainLastUserChatsService = new ObtainLastUserChatsService(
+    new MongooseMessageRepository()
+  );
   private readonly obtainChatService = new ObtainChatService(new MongooseMessageRepository());
 
   private readonly obtainContactInfoService = new ObtainContactInfoService(
     new PrismaPrestamistaRepository(),
     new PrismaClientRepository(),
-    new MongooseMessageRepository(),
+    new MongooseMessageRepository()
   );
 
   // Manejo de errores

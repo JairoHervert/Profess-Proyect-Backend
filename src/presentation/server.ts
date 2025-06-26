@@ -1,7 +1,7 @@
 import express, { Router, Request, Response } from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-// import { connectMongoDB } from '../config/mongoose/mongo-connect';
+import { connectMongoDB } from '../config/mongoose/mongo-connect';
 
 // Pruebas
 import { AuthMiddleware } from './middleware/prestamista.auth.middleware.cookies';
@@ -42,7 +42,7 @@ export class Server {
     this.app.use(express.static(this.publicPath));
 
     //* MongoDB Connection
-    // await connectMongoDB();
+    await connectMongoDB();
 
     //* Routes
     this.app.use(this.routes);
