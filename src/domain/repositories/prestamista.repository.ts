@@ -1,5 +1,5 @@
 import { CreatePrestamistaDto } from '../dtos/prestamista-register.dto';
-import { CompleteDataDto } from "../dtos/prestamista/prestamista-completeData.dto";
+import { CompleteDataDto } from '../dtos/prestamista/prestamista-completeData.dto';
 import { PrestamistaEntity } from '../entities/prestamista.entity';
 
 export interface PrestamistaRepository {
