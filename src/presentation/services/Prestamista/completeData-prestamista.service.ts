@@ -7,11 +7,17 @@ export class CompleteDataService {
   async execute(data: CompleteDataDto) {
     const prestamista = await this.prestamistaRepo.completeData(data.id, {
       id: data.id,
+      datosCompletos: true,
       nombre: data.nombre,
       telefono: data.telefono,
+      telefonoSecundario: data.telefonoSecundario,
+      tipoEntidad: data.tipoEntidad,
       descripcion: data.descripcion,
       linkFoto: data.linkFoto,
-      datosCompletos: true,
+      fechaNacimiento: data.fechaNacimiento,
+      preferenciasPago: data.preferenciasPago,
+      horarios: data.horarios,
+      redesSociales: data.redesSociales,
     });
 
     if (!prestamista) {
@@ -23,8 +29,14 @@ export class CompleteDataService {
       datosCompletos: prestamista.datosCompletos,
       nombre: prestamista.nombre || undefined,
       telefono: prestamista.telefono || undefined,
+      telefonoSecundario: prestamista.telefonoSecundario || undefined,
+      tipoEntidad: prestamista.tipoEntidad || undefined,
       descripcion: prestamista.descripcion || undefined,
       linkFoto: prestamista.linkFoto || undefined,
+      fechaNacimiento: prestamista.fechaNacimiento || undefined,
+      preferenciasPago: prestamista.preferenciasPago || undefined,
+      horarios: prestamista.horarios || undefined,
+      redesSociales: prestamista.redesSociales || undefined,
     };
   }
 }
