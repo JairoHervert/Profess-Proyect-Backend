@@ -11,6 +11,7 @@ export class PrismaServicioRepository implements ServicioRepository {
       data: {
         titulo: CreateServicioDto.titulo,
         descripcion: CreateServicioDto.descripcion,
+        materiales: CreateServicioDto.materiales,
         direccion: CreateServicioDto.direccion,
         garantia: CreateServicioDto.garantia,
         zona: CreateServicioDto.zona,
@@ -26,6 +27,7 @@ export class PrismaServicioRepository implements ServicioRepository {
       id: servicio.idServicio,
       titulo: servicio.titulo,
       descripcion: servicio.descripcion,
+      materiales: servicio.materiales,
       direccion: servicio.direccion,
       garantia: servicio.garantia,
       zona: servicio.zona,

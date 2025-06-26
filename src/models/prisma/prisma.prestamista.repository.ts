@@ -45,4 +45,13 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
       nombre: prestamista.nombre ?? undefined,
     };
   }
+
+  async getNombreById(id: number): Promise<string | null> {
+    const prestamista = await prisma.prestamista.findUnique({
+      where: { idPrestamista: id },
+      select: { nombre: true },
+    });
+
+    return prestamista?.nombre ?? null;
+  }
 }

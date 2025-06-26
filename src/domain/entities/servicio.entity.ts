@@ -4,6 +4,7 @@ export interface ServicioEntity {
   id: number;
   titulo: string;
   descripcion: string;
+  materiales: boolean;
   direccion: string;
   garantia: string;
   zona: string;

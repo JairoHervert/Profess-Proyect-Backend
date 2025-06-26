@@ -4,5 +4,6 @@ import { PrestamistaEntity } from '../entities/prestamista.entity';
 export interface PrestamistaRepository {
   create(data: CreatePrestamistaDto): Promise<PrestamistaEntity>;
   findByCorreo(correo: string): Promise<PrestamistaEntity | null>;
+  getNombreById(id: number): Promise<string | null>;
   // sendEmailValidationLink(correo: string): Promise<void>;
 }
