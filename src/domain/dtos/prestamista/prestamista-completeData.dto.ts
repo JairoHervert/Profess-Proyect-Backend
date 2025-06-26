@@ -5,7 +5,7 @@ export class CompleteDataDto {
     public readonly nombre?: string,
     public readonly telefono?: string,
     public readonly descripcion?: string,
-    public readonly linkFoto?: string,
+    public readonly linkFoto?: string
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,7 +22,7 @@ export class CompleteDataDto {
       nombre ?? undefined,
       telefono ?? undefined,
       descripcion ?? undefined,
-      linkFoto ?? undefined,
+      linkFoto ?? undefined
     );
 
     return [undefined, dto];
