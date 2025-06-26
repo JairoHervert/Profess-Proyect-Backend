@@ -3,6 +3,8 @@ import { PrismaPrestamistaRepository } from '../../models/prisma/prisma.prestami
 import { PrismaClientRepository } from '../../models/prisma/prisma.client.repository';
 import { CreatePrestamistaService } from '../services/Prestamista/create-prestamista.service';
 import { RegisterPrestamistaGoogleService } from '../services/Prestamista/register-prestamista-google.service';
+import { CompleteDataDto } from '../../domain/dtos/prestamista/prestamista-completeData.dto';
+import { CompleteDataService } from '../services/Prestamista/completeData-prestamista.service';
 
 export class PrestamistaAuthController {
   private readonly registerService = new CreatePrestamistaService(
@@ -14,6 +16,8 @@ export class PrestamistaAuthController {
     new PrismaPrestamistaRepository(),
     new PrismaClientRepository()
   );
+
+  private readonly completeDataService = new CompleteDataService(new PrismaPrestamistaRepository());
 
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof Error) {
@@ -51,6 +55,17 @@ export class PrestamistaAuthController {
           })
           .json(user);
       })
+      .catch(error => this.handleError(error, res));
+  };
+
+  public completeData = (req: Request, res: Response) => {
+    const [error, completeDataDto] = CompleteDataDto.create(req.body);
+
+    if (error) return res.status(400).json({ error });
+
+    this.completeDataService
+      .execute(completeDataDto!)
+      .then(data => res.status(201).json(data))
       .catch(error => this.handleError(error, res));
   };
 }
