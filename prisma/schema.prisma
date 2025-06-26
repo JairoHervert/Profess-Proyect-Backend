@@ -52,11 +52,10 @@ model Prestamista {
   horarios           String?
   redesSociales      String?
   tipoCuenta         String?
+  experiencia        String?
 
-  servicios    Servicio[]
-  fotos        FotoTrabajo[]
-  aptitudes    Aptitud[]
-  experiencias Experiencia[]
+  servicios Servicio[]
+  fotos     FotoTrabajo[]
 }
 
 model Servicio {
@@ -108,22 +107,6 @@ model FotoTrabajo {
   prestamista_idPrestamista Int
 
   prestamista Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
-}
-
-model Aptitud {
-  idAptitud                 Int    @id @default(autoincrement())
-  nombre                    String
-  prestamista_idPrestamista Int
-
-  prestamista Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
-}
-
-model Experiencia {
-  idExperiencia Int    @id @default(autoincrement())
-  puesto        String
-
-  prestamista_idPrestamista Int
-  prestamista               Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
 }
 
 enum Disponibilidad {

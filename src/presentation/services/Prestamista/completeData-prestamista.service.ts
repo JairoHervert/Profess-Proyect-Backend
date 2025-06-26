@@ -18,6 +18,7 @@ export class CompleteDataService {
       preferenciasPago: data.preferenciasPago,
       horarios: data.horarios,
       redesSociales: data.redesSociales,
+      experiencia: data.experiencia,
     });
 
     if (!prestamista) {
@@ -37,6 +38,7 @@ export class CompleteDataService {
       preferenciasPago: prestamista.preferenciasPago || undefined,
       horarios: prestamista.horarios || undefined,
       redesSociales: prestamista.redesSociales || undefined,
+      experiencia: prestamista.experiencia || undefined,
     };
   }
 }

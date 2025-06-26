@@ -16,4 +16,5 @@ export interface PrestamistaEntity {
   horarios?: string;
   redesSociales?: string;
   tipoCuenta?: string;
+  experiencia?: string;
 }

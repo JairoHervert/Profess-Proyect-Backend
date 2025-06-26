@@ -11,7 +11,8 @@ export class CompleteDataDto {
     public readonly fechaNacimiento?: Date,
     public readonly preferenciasPago?: string,
     public readonly horarios?: string,
-    public readonly redesSociales?: string
+    public readonly redesSociales?: string,
+    public readonly experiencia?: string
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,6 +30,7 @@ export class CompleteDataDto {
       preferenciasPago,
       horarios,
       redesSociales,
+      experiencia,
     } = object;
 
     if (
@@ -41,7 +43,8 @@ export class CompleteDataDto {
       !tipoCuenta ||
       !fechaNacimiento ||
       !preferenciasPago ||
-      !horarios
+      !horarios ||
+      !experiencia
     ) {
       return ['Faltan campos obligatorios', undefined];
     }
@@ -58,7 +61,8 @@ export class CompleteDataDto {
       fechaNacimiento ?? undefined,
       preferenciasPago ?? undefined,
       horarios ?? undefined,
-      redesSociales ?? undefined
+      redesSociales ?? undefined,
+      experiencia ?? undefined
     );
 
     return [undefined, dto];

@@ -74,6 +74,7 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
         preferenciasPago: data.preferenciasPago,
         horarios: data.horarios,
         redesSociales: data.redesSociales,
+        experiencia: data.experiencia,
       },
     });
 
@@ -93,6 +94,7 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
       preferenciasPago: prestamista.preferenciasPago ?? undefined,
       horarios: prestamista.horarios ?? undefined,
       redesSociales: prestamista.redesSociales ?? undefined,
+      experiencia: prestamista.experiencia ?? undefined,
     };
   }
 }
