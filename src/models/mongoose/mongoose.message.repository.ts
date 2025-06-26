@@ -132,14 +132,7 @@ export class MongooseMessageRepository implements MessageRepository {
         {
           $project: {
             _id: 0,
-            fileLink: {
-              $concat: [
-                '/root', // debo cambiar esto por la ruta base qeue me digan
-                '$content.filepath',
-                '/',
-                '$content.filename',
-              ],
-            },
+            fileLink: '$content.filepath',
           },
         },
       ]);

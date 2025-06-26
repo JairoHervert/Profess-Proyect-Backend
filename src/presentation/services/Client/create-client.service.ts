@@ -26,13 +26,15 @@ export class CreateClientService {
     });
 
     const token = await JwtAdapter.generateToken({
-      client_id: client.id,
-      correo: client.correo,
+      id: client.id,
+      email: client.correo,
+      role: 'cliente',
     });
 
     return {
-      client_id: client.id,
-      correo: client.correo,
+      id: client.id,
+      email: client.correo,
+      role: 'cliente',
       token: token,
     };
   }

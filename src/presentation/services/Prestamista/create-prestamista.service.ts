@@ -27,14 +27,12 @@ export class CreatePrestamistaService {
 
     const token = await JwtAdapter.generateToken({
       id: prestamista.id,
-      name: prestamista.nombre,
       email: prestamista.correo,
       role: 'prestamista',
     });
 
     return {
       id: prestamista.id,
-      name: prestamista.nombre,
       email: prestamista.correo,
       role: 'prestamista',
       token: token,

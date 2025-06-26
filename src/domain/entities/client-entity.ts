@@ -6,8 +6,13 @@ export interface ClientEntity {
   datosCompletos: boolean;
   nombre?: string;
   telefono?: string;
+  telefonoSecundario?: string;
   tipoEntidad?: string;
   descripcion?: string;
   linkFoto?: string;
   calificacion?: number;
+  fechaNacimiento?: Date;
+  tipoCuenta?: string;
+  preferenciasPago?: string;
+  horarios?: string;
 }

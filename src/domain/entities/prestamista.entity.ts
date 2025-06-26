@@ -6,8 +6,14 @@ export interface PrestamistaEntity {
   datosCompletos: boolean;
   nombre?: string;
   telefono?: string;
+  telefonoSecundario?: string;
   tipoEntidad?: string;
   descripcion?: string;
   linkFoto?: string;
   calificacion?: number;
+  fechaNacimiento?: Date;
+  preferenciasPago?: string;
+  horarios?: string;
+  redesSociales?: string;
+  tipoCuenta?: string;
 }

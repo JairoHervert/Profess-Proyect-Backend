@@ -1,4 +1,4 @@
-export class CompleteDataDto {
+export class CompleteDataClientDto {
   constructor(
     public readonly id: number,
     public readonly datosCompletos: boolean,
@@ -6,16 +6,14 @@ export class CompleteDataDto {
     public readonly telefono?: string,
     public readonly telefonoSecundario?: string,
     public readonly tipoCuenta?: string,
-    public readonly descripcion?: string,
     public readonly linkFoto?: string,
     public readonly fechaNacimiento?: Date,
     public readonly preferenciasPago?: string,
-    public readonly horarios?: string,
-    public readonly redesSociales?: string
+    public readonly horarios?: string
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static create(object: { [key: string]: any }): [string?, CompleteDataDto?] {
+  static create(object: { [key: string]: any }): [string?, CompleteDataClientDto?] {
     const {
       id,
       datosCompletos,
@@ -23,12 +21,10 @@ export class CompleteDataDto {
       telefono,
       telefonoSecundario,
       tipoCuenta,
-      descripcion,
       linkFoto,
       fechaNacimiento,
       preferenciasPago,
       horarios,
-      redesSociales,
     } = object;
 
     if (
@@ -36,8 +32,6 @@ export class CompleteDataDto {
       !datosCompletos ||
       !nombre ||
       !telefono ||
-      !descripcion ||
-      !linkFoto ||
       !tipoCuenta ||
       !fechaNacimiento ||
       !preferenciasPago ||
@@ -46,19 +40,17 @@ export class CompleteDataDto {
       return ['Faltan campos obligatorios', undefined];
     }
 
-    const dto = new CompleteDataDto(
+    const dto = new CompleteDataClientDto(
       id,
       datosCompletos,
       nombre ?? undefined,
       telefono ?? undefined,
       telefonoSecundario ?? undefined,
       tipoCuenta ?? undefined,
-      descripcion ?? undefined,
       linkFoto ?? undefined,
       fechaNacimiento ?? undefined,
       preferenciasPago ?? undefined,
-      horarios ?? undefined,
-      redesSociales ?? undefined
+      horarios ?? undefined
     );
 
     return [undefined, dto];
