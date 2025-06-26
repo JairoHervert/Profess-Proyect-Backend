@@ -14,25 +14,9 @@ model Categoria {
 }
 
 model Cliente {
-  idCliente    Int     @id @default(autoincrement())
-  correo       String  @unique
-  contraseña   String
-  correoVerificado Boolean @default(false)
-  datosCompletos   Boolean @default(false)
-  nombre       String?
-  telefono     String?
-  tipoEntidad  String?
-  descripcion  String?
-  linkFoto     String?
-  calificacion Int?
-
-  solicitudes SolicitudContratacion[] //
-}
-
-model Prestamista {
-  idPrestamista    Int     @id @default(autoincrement())
+  idCliente        Int     @id @default(autoincrement())
   correo           String  @unique
-  contraseña       String
+  contraseña      String
   correoVerificado Boolean @default(false)
   datosCompletos   Boolean @default(false)
   nombre           String?
@@ -42,6 +26,27 @@ model Prestamista {
   linkFoto         String?
   calificacion     Int?
 
+  solicitudes SolicitudContratacion[] //
+}
+
+model Prestamista {
+  idPrestamista      Int       @id @default(autoincrement())
+  correo             String    @unique
+  contraseña        String
+  correoVerificado   Boolean   @default(false)
+  datosCompletos     Boolean   @default(false)
+  nombre             String?
+  telefono           String?
+  telefonoSecundario String?
+  tipoEntidad        String?
+  descripcion        String?
+  linkFoto           String?
+  calificacion       Int?
+  fechaNacimiento    DateTime?
+  preferenciasPago   String?
+  horarios           String?
+  redesSociales      String?
+
   servicios    Servicio[]
   fotos        FotoTrabajo[]
   aptitudes    Aptitud[]
@@ -49,16 +54,16 @@ model Prestamista {
 }
 
 model Servicio {
-  idServicio     Int             @id @default(autoincrement())
+  idServicio     Int      @id @default(autoincrement())
   titulo         String
   descripcion    String
-  materiales     Boolean         @default(false)
+  materiales     Boolean  @default(false)
   direccion      String
-  garantia       String          @default("No disponible")
+  garantia       String   @default("No disponible")
   zona           String
-  modalidades    String          @default("No disponible")
-  createdAt      DateTime        @default(now())
-  fechaInicio    DateTime        @default(now())
+  modalidades    String   @default("No disponible")
+  createdAt      DateTime @default(now())
+  fechaInicio    DateTime @default(now())
   disponibilidad String?
 
   prestamista_idPrestamista Int
@@ -108,11 +113,8 @@ model Aptitud {
 }
 
 model Experiencia {
-  idExperiencia Int     @id @default(autoincrement())
-  empresa       String?
+  idExperiencia Int    @id @default(autoincrement())
   puesto        String
-  inicio        Int
-  fin           Int?
 
   prestamista_idPrestamista Int
   prestamista               Prestamista @relation(fields: [prestamista_idPrestamista], references: [idPrestamista])
