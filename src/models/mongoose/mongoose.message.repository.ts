@@ -53,10 +53,7 @@ export class MongooseMessageRepository implements MessageRepository {
     const messages = await MessageModel.aggregate([
       {
         $match: {
-          $or: [
-            { senderEmail: userEmail },
-            { receiverEmail: userEmail },
-          ],
+          $or: [{ senderEmail: userEmail }, { receiverEmail: userEmail }],
         },
       },
       {
@@ -147,7 +144,7 @@ export class MongooseMessageRepository implements MessageRepository {
         },
       ]);
 
-      return messages.map((message) => message.fileLink);
+      return messages.map(message => message.fileLink);
     } catch (error) {
       console.error('Error al obtener los enlaces de archivos compartidos:', error);
       return [];

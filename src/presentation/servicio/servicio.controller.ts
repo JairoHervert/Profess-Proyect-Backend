@@ -1,12 +1,17 @@
 import { Request, Response } from 'express';
 import { PrismaServicioRepository } from '../../models/prisma/prisma.servicio.repository';
+import { PrismaCategoryRepository } from '../../models/prisma/prisma.category.repository';
 import { CreateServicioService } from '../services/Servicio/create-servicio.service';
 import { CreateServicioDto } from '../../domain/dtos/servicio/create-servicio.dto';
 
 export class ServicioController {
-  private readonly createService = new CreateServicioService(new PrismaServicioRepository());
+  private readonly createService = new CreateServicioService(
+    new PrismaServicioRepository(),
+    new PrismaCategoryRepository()
+  );
 
   private handleError = (error: unknown, res: Response) => {
+    console.error('Error in ServicioController:', error);
     if (error instanceof Error) {
       return res.status(400).json({ error: error.message });
     }
@@ -14,12 +19,11 @@ export class ServicioController {
   };
 
   public createServicio = (req: Request, res: Response) => {
-    const [error, healthCreateDto] = CreateServicioDto.create(req.body);
-
+    const [error, serviceCreateDto] = CreateServicioDto.create(req.body);
     if (error) return res.status(400).json({ error });
 
     this.createService
-      .execute(healthCreateDto!)
+      .execute(serviceCreateDto!)
       .then(servicio => res.status(201).json(servicio))
       .catch(error => this.handleError(error, res));
   };

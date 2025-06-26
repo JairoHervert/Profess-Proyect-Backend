@@ -16,8 +16,12 @@ export class CreateMessageService {
     }
 
     // Extraer el nombre del remitente y del destinatario en la base de datos SQL
-    const senderData = await this.prestamistaRepo.findByCorreo(data.senderEmail) || await this.clientRepo.findByCorreo(data.senderEmail);
-    const receiverData = await this.prestamistaRepo.findByCorreo(data.receiverEmail) || await this.clientRepo.findByCorreo(data.receiverEmail);
+    const senderData =
+      (await this.prestamistaRepo.findByCorreo(data.senderEmail)) ||
+      (await this.clientRepo.findByCorreo(data.senderEmail));
+    const receiverData =
+      (await this.prestamistaRepo.findByCorreo(data.receiverEmail)) ||
+      (await this.clientRepo.findByCorreo(data.receiverEmail));
 
     if (!senderData || !receiverData) {
       throw new Error('El remitente o el destinatario no están registrados');
@@ -31,7 +35,7 @@ export class CreateMessageService {
       senderOccupation: senderData.tipoEntidad || '',
       receiverOccupation: receiverData.tipoEntidad || '',
       senderPathProfilePicture: senderData.linkFoto,
-      receiverPathProfilePicture: receiverData.linkFoto
+      receiverPathProfilePicture: receiverData.linkFoto,
     };
 
     // Crear el mensaje
