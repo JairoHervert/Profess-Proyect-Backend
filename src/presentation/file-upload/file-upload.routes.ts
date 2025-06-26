@@ -12,7 +12,7 @@ export class FileUploadRoutes {
     router.post(
       '/single/:type',
       FileUploadMiddleware.containFiles,
-      TypeMiddleware.validTypes(['users', 'services']),
+      TypeMiddleware.validTypes(['users', 'services', 'chat-uploads']),
       controller.uploadFile
     );
 
