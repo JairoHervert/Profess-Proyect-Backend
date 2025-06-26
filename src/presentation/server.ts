@@ -2,9 +2,8 @@ import express, { Router, Request, Response } from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { connectMongoDB } from '../config/mongoose/mongo-connect';
-
-// Pruebas
-import { AuthMiddleware } from './middleware/prestamista.auth.middleware.cookies';
+import fileUpload from 'express-fileupload';
+import path from 'path';
 
 interface Options {
   port: number;
@@ -30,7 +29,7 @@ export class Server {
   async start() {
     //* Middlewares
     this.app.use(express.json()); // raw
-    // this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
+    this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
     this.app.use(
       cors({
         origin: 'http://localhost:5173',
@@ -38,29 +37,17 @@ export class Server {
       })
     );
     this.app.use(cookieParser());
+    this.app.use(fileUpload({ createParentPath: true }));
     //* Public Folder
     this.app.use(express.static(this.publicPath));
-
+    // Uploads Folder
+    const uploadsPath = path.resolve('uploads');
+    this.app.use('/uploads', express.static(uploadsPath));
     //* MongoDB Connection
     await connectMongoDB();
 
     //* Routes
     this.app.use(this.routes);
-
-    this.app.get(
-      '/check-token',
-      [AuthMiddleware.validateRole('prestamista')],
-      (req: Request, res: Response) => {
-        const token = req.cookies?.token;
-        // const payload = (req as any).auth;
-        // console.log('Payload recibido:', payload);
-        if (token) {
-          return res.json({ message: 'Token recibido', token });
-        } else {
-          return res.status(401).json({ error: 'No se encontró el token' });
-        }
-      }
-    );
 
     this.serverListener = this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
