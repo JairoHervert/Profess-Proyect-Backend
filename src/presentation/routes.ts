@@ -17,7 +17,7 @@ export class AppRoutes {
     router.use('/api/servicio', ServicioRoutes.routes);
     router.use('/api/user', UserRoutes.routes);
     router.use('/api/upload', FileUploadRoutes.routes);
-  
+
     router.use('/api/solicitud', SolicitudRoutes.routes);
 
     router.use('/api/category', CategoryRoutes.routes);

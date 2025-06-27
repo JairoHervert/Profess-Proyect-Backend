@@ -29,7 +29,7 @@ export class PrismaSolicitudRepository implements SolicitudRepository {
           estado: data.estado || 'pendientes',
           fechaSolicitud: data.fechaSolicitud || new Date(),
           servicio_idServicio: data.id_servicio,
-          cliente_idCliente: data.id_cliente
+          cliente_idCliente: data.id_cliente,
         },
       });
 

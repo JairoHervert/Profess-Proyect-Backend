@@ -6,6 +6,7 @@ import { CreateServicioService } from '../services/Servicio/create-servicio.serv
 import { SearchServicioService } from '../services/Servicio/search-servicio.service';
 import { CreateServicioDto } from '../../domain/dtos/servicio/create-servicio.dto';
 import { SearchServicioDto } from '../../domain/dtos/servicio/search-servicio.dto';
+import { GetServicioService } from '../services/Servicio/get-servicio.service';
 
 export class ServicioController {
   private readonly createService = new CreateServicioService(
@@ -14,6 +15,12 @@ export class ServicioController {
   );
 
   private readonly searchService = new SearchServicioService(
+    new PrismaServicioRepository(),
+    new PrismaCategoryRepository(),
+    new PrismaPrestamistaRepository()
+  );
+
+  private readonly getServicioService = new GetServicioService(
     new PrismaServicioRepository(),
     new PrismaCategoryRepository(),
     new PrismaPrestamistaRepository()
@@ -48,6 +55,18 @@ export class ServicioController {
 
     this.searchService
       .execute(searchDto!)
+      .then(result => res.status(200).json(result))
+      .catch(error => this.handleError(error, res));
+  };
+
+  public getService = (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    this.getServicioService
+      .execute(id)
       .then(result => res.status(200).json(result))
       .catch(error => this.handleError(error, res));
   };
