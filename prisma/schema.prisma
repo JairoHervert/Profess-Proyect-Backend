@@ -53,6 +53,7 @@ model Prestamista {
   redesSociales      String?
   tipoCuenta         String?
   experiencia        String?
+  imgTrabajo         String? @db.Text
 
   servicios Servicio[]
   fotos     FotoTrabajo[]

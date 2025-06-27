@@ -19,6 +19,7 @@ export class CompleteDataService {
       horarios: data.horarios,
       redesSociales: data.redesSociales,
       experiencia: data.experiencia,
+      imgTrabajo: data.imgTrabajo,
     });
 
     if (!prestamista) {
@@ -39,6 +40,7 @@ export class CompleteDataService {
       horarios: prestamista.horarios || undefined,
       redesSociales: prestamista.redesSociales || undefined,
       experiencia: prestamista.experiencia || undefined,
+      imgTrabajo: prestamista.imgTrabajo || undefined,
     };
   }
 }
