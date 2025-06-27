@@ -32,6 +32,7 @@ export class FileUploadService {
     const destination = path.resolve(__dirname, '../../../../', folder);
     this.checkFolder(destination);
 
+    const originalFileName = file.name;
     const fileName = `${this.uuid()}.${fileExtension}`;
     const finalPath = `${destination}/${fileName}`;
 
@@ -41,7 +42,7 @@ export class FileUploadService {
     // return { fileName };
     // regresar el nombre del archivo y el link con localhost3000
     return {
-      fileName,
+      fileName: originalFileName,
       link: `http://localhost:3000/${folder}/${fileName}`,
     };
   }

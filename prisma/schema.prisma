@@ -69,6 +69,7 @@ model Servicio {
   modalidades    String   @default("No disponible")
   createdAt      DateTime @default(now())
   fechaInicio    DateTime @default(now())
+  imagenes       String   @db.Text
   disponibilidad String?
 
   prestamista_idPrestamista Int

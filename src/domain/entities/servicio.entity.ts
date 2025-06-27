@@ -11,5 +11,6 @@ export interface ServicioEntity {
   modalidades: string;
   createdAt: Date;
   fechaInicio: Date;
+  imagenes: string;
   disponibilidad?: string;
 }
