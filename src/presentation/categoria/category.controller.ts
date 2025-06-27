@@ -5,7 +5,7 @@ export class CategoryController {
   // Metodo para cargar las categorias
   async loadCategory(req: Request, res: Response): Promise<void> {
     const categoryRepo = new PrismaCategoryRepository();
-    
+
     try {
       // Llamar a la función que carga las categorías
       await categoryRepo.loadCategory();
@@ -18,7 +18,7 @@ export class CategoryController {
   // Metodo para obtener las categorias
   async getCategories(req: Request, res: Response): Promise<void> {
     const categoryRepo = new PrismaCategoryRepository();
-    
+
     try {
       const categories = await categoryRepo.getCategories();
       res.status(200).json(categories);

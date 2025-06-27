@@ -58,7 +58,7 @@ export class PrismaCategoryRepository {
           nombreCategoria: true,
         },
       });
-      return categories.map((category) => category.nombreCategoria);
+      return categories.map(category => category.nombreCategoria);
     } catch (error) {
       console.error('Error al obtener las categorías:', error);
       throw error;
