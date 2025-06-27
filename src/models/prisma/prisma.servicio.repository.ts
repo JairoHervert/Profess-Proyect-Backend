@@ -17,6 +17,7 @@ export class PrismaServicioRepository implements ServicioRepository {
         zona: CreateServicioDto.zona,
         modalidades: CreateServicioDto.modalidades,
         fechaInicio: CreateServicioDto.fechaInicio,
+        imagenes: CreateServicioDto.imagenes,
         disponibilidad: CreateServicioDto.disponibilidad,
         prestamista_idPrestamista: CreateServicioDto.prestamistaId,
         categoria_idCategoria: CreateServicioDto.idCategoria ?? 5,
@@ -34,10 +35,78 @@ export class PrismaServicioRepository implements ServicioRepository {
       modalidades: servicio.modalidades,
       createdAt: servicio.createdAt,
       fechaInicio: servicio.fechaInicio,
+      imagenes: servicio.imagenes,
       disponibilidad: servicio.disponibilidad || undefined,
       prestamistaId: servicio.prestamista_idPrestamista,
       categoriaId: servicio.categoria_idCategoria,
     };
     return servicioEntity;
+  }
+
+  async searchServices(trabajo: string, zona: string): Promise<ServicioEntity[]> {
+    const condiciones: any = {};
+
+    if (trabajo.trim()) {
+      condiciones.OR = [
+        {
+          titulo: {
+            contains: trabajo,
+          },
+        },
+        {
+          categoria: {
+            is: {
+              nombreCategoria: {
+                contains: trabajo,
+              },
+            },
+          },
+        },
+      ];
+    }
+
+    if (zona.trim()) {
+      condiciones.AND = [
+        {
+          OR: [
+            {
+              direccion: {
+                contains: zona,
+              },
+            },
+            {
+              zona: {
+                contains: zona,
+              },
+            },
+          ],
+        },
+      ];
+    }
+
+    const servicios = await prisma.servicio.findMany({
+      where: condiciones,
+      include: {
+        categoria: true,
+        prestamista: true,
+      },
+    });
+
+    return servicios.map(servicio => ({
+      id: servicio.idServicio,
+      titulo: servicio.titulo,
+      descripcion: servicio.descripcion,
+      materiales: servicio.materiales,
+      direccion: servicio.direccion,
+      garantia: servicio.garantia,
+      zona: servicio.zona,
+      modalidades: servicio.modalidades,
+      createdAt: servicio.createdAt,
+      fechaInicio: servicio.fechaInicio,
+      imagenes: servicio.imagenes,
+      disponibilidad: servicio.disponibilidad || undefined,
+      prestamistaId: servicio.prestamista_idPrestamista,
+      categoriaId: servicio.categoria_idCategoria,
+    }));
   }
 }

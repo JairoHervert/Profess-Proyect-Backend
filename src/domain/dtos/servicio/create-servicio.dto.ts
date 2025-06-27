@@ -10,6 +10,7 @@ export class CreateServicioDto {
     public readonly zona: string,
     public readonly modalidades: string,
     public readonly fechaInicio: Date,
+    public readonly imagenes: string,
     public readonly disponibilidad?: string,
     public idCategoria?: number
   ) {}
@@ -27,6 +28,7 @@ export class CreateServicioDto {
       zona,
       modalidades,
       fechaInicio,
+      imagenes,
     } = object;
 
     if (
@@ -54,6 +56,7 @@ export class CreateServicioDto {
       zona,
       modalidades,
       new Date(fechaInicio),
+      imagenes,
       object.disponibilidad ? String(object.disponibilidad) : undefined
     );
 

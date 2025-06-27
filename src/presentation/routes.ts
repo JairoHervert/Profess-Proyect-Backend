@@ -5,6 +5,7 @@ import { MessagesChatRoutes } from './messages/messages.routes';
 import { ClientRoutes } from './client/client.routes';
 import { UserRoutes } from './user/user.routes';
 import { FileUploadRoutes } from './file-upload/file-upload.routes';
+import { CategoryRoutes } from './categoria/category.routes';
 
 export class AppRoutes {
   static get routes(): Router {
@@ -15,6 +16,8 @@ export class AppRoutes {
     router.use('/api/servicio', ServicioRoutes.routes);
     router.use('/api/user', UserRoutes.routes);
     router.use('/api/upload', FileUploadRoutes.routes);
+
+    router.use('/api/category', CategoryRoutes.routes);
 
     return router;
   }

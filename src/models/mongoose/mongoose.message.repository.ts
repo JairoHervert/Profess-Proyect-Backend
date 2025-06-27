@@ -112,7 +112,10 @@ export class MongooseMessageRepository implements MessageRepository {
   }
 
   // Metodo para obtener solo las listas de archivos enviados entre dos usuarios
-  async getOnlySharedFiles(senderEmail: string, receiverEmail: string): Promise<string[]> {
+  async getOnlySharedFiles(
+    senderEmail: string,
+    receiverEmail: string
+  ): Promise<{ filename: string; filepath: string }[]> {
     try {
       const messages = await MessageModel.aggregate([
         {
@@ -132,14 +135,18 @@ export class MongooseMessageRepository implements MessageRepository {
         {
           $project: {
             _id: 0,
-            fileLink: '$content.filepath',
+            filename: '$content.filename',
+            filepath: '$content.filepath',
           },
         },
       ]);
 
-      return messages.map(message => message.fileLink);
+      return messages.map(message => ({
+        filename: message.filename,
+        filepath: message.filepath,
+      }));
     } catch (error) {
-      console.error('Error al obtener los enlaces de archivos compartidos:', error);
+      console.error('Error al obtener los archivos compartidos:', error);
       return [];
     }
   }

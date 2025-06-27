@@ -32,6 +32,14 @@ coverage/
 *.log
 
 # Other common generated folders
+uploads/
 .idea/
 *.sqlite
 *.sqlite-journal
+
+# Images and media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
