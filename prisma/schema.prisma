@@ -82,7 +82,7 @@ model Servicio {
 
 model SolicitudContratacion {
   idSolicitud         Int             @id @default(autoincrement())
-  estado              EstadoSolicitud
+  estado              String          @default("pendiente")
   fechaSolicitud      DateTime
   servicio_idServicio Int
   cliente_idCliente   Int
