@@ -55,4 +55,14 @@ export class UserAuthController {
       })
       .catch(error => this.handleError(error, res));
   };
+
+  public logout = (req: Request, res: Response) => {
+    res
+      .clearCookie('token', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+      })
+      .json({ message: 'Logout successful' });
+  };
 }

@@ -29,6 +29,8 @@ export class RegisterGoogleClientService {
       throw new Error('El correo ya está en uso');
     }
 
+    console.log('Estoy en registro de cliente con Google');
+
     const contraseña = crypto.randomBytes(10).toString('hex');
     const hashed = bcryptAdapter.hash(contraseña);
 

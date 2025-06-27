@@ -14,8 +14,8 @@ export class ClientController {
   );
 
   private readonly registerGoogleService = new RegisterGoogleClientService(
-    new PrismaClientRepository(),
-    new PrismaPrestamistaRepository()
+    new PrismaPrestamistaRepository(),
+    new PrismaClientRepository()
   );
 
   private readonly completeDataService = new CompleteDataClientService(
