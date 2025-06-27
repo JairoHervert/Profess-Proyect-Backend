@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PrismaServicioRepository } from '../../models/prisma/prisma.servicio.repository';
 import { PrismaCategoryRepository } from '../../models/prisma/prisma.category.repository';
+import { PrismaPrestamistaRepository } from '../../models/prisma/prisma.prestamista.repository';
 import { CreateServicioService } from '../services/Servicio/create-servicio.service';
 import { SearchServicioService } from '../services/Servicio/search-servicio.service';
 import { CreateServicioDto } from '../../domain/dtos/servicio/create-servicio.dto';
@@ -14,7 +15,8 @@ export class ServicioController {
 
   private readonly searchService = new SearchServicioService(
     new PrismaServicioRepository(),
-    new PrismaCategoryRepository()
+    new PrismaCategoryRepository(),
+    new PrismaPrestamistaRepository()
   );
 
   private handleError = (error: unknown, res: Response) => {

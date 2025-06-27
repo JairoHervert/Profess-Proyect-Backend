@@ -5,6 +5,7 @@ import { CreateClientService } from '../services/Client/create-client.service';
 import { RegisterGoogleClientService } from '../services/Client/register-cliente-google.service';
 import { CompleteDataClientDto } from '../../domain/dtos/client/client-completeData.dto';
 import { CompleteDataClientService } from '../services/Client/completeData-client.service';
+import { GetDataClientService } from '../services/Client/get-data-client.service';
 
 export class ClientController {
   private readonly createService = new CreateClientService(
@@ -20,6 +21,8 @@ export class ClientController {
   private readonly completeDataService = new CompleteDataClientService(
     new PrismaClientRepository()
   );
+
+  private readonly getDataService = new GetDataClientService(new PrismaClientRepository());
 
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof Error) {
@@ -69,5 +72,19 @@ export class ClientController {
       .execute(completeDataDto!)
       .then(data => res.status(201).json(data))
       .catch(error => this.handleError(error, res));
+  };
+
+  public getData = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    try {
+      const data = await this.getDataService.execute(id);
+      return res.status(200).json(data);
+    } catch (error) {
+      this.handleError(error, res);
+    }
   };
 }

@@ -44,6 +44,7 @@ export class PrismaServicioRepository implements ServicioRepository {
   }
 
   async searchServices(trabajo: string, zona: string): Promise<ServicioEntity[]> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const condiciones: any = {};
 
     if (trabajo.trim()) {

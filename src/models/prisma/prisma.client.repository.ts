@@ -56,6 +56,31 @@ export class PrismaClientRepository implements ClientRepository {
     return client?.nombre ?? null;
   }
 
+  async getDataById(id: number): Promise<ClientEntity | null> {
+    const client = await prisma.cliente.findUnique({
+      where: { idCliente: id },
+    });
+
+    if (!client) return null;
+
+    return {
+      id: client.idCliente,
+      correo: client.correo,
+      contraseña: client.contraseña,
+      correoVerificado: client.correoVerificado,
+      datosCompletos: client.datosCompletos,
+      nombre: client.nombre ?? undefined,
+      linkFoto: client.linkFoto ?? undefined,
+      fechaNacimiento: client.fechaNacimiento ?? undefined,
+      tipoCuenta: client.tipoCuenta ?? undefined,
+      telefono: client.telefono ?? undefined,
+      telefonoSecundario: client.telefonoSecundario ?? undefined,
+      descripcion: client.descripcion ?? undefined,
+      preferenciasPago: client.preferenciasPago ?? undefined,
+      horarios: client.horarios ?? undefined,
+    };
+  }
+
   async completeData(idCliente: number, data: CompleteDataClientDto): Promise<ClientEntity | null> {
     const cliente = await prisma.cliente.update({
       where: { idCliente },

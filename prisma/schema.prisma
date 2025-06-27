@@ -66,7 +66,7 @@ model Servicio {
   direccion      String
   garantia       String   @default("No disponible")
   zona           String   @db.Text
-  modalidades    String   @db.Text @default("No disponible")
+  modalidades    String   @default("No disponible") @db.Text
   createdAt      DateTime @default(now())
   fechaInicio    DateTime @default(now())
   imagenes       String   @db.Text
@@ -81,8 +81,8 @@ model Servicio {
 }
 
 model SolicitudContratacion {
-  idSolicitud         Int             @id @default(autoincrement())
-  estado              String          @default("pendiente")
+  idSolicitud         Int      @id @default(autoincrement())
+  estado              String   @default("pendiente")
   fechaSolicitud      DateTime
   servicio_idServicio Int
   cliente_idCliente   Int
