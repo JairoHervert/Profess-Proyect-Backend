@@ -20,7 +20,7 @@ export class FileUploadService {
   async uploadSingle(
     file: UploadedFile,
     folder: string = 'uploads',
-    validExtensions: string[] = ['png', 'gif', 'jpg', 'jpeg']
+    validExtensions: string[] = ['png', 'gif', 'jpg', 'jpeg', 'pdf']
   ) {
     const fileExtension = file.mimetype.split('/').at(1) ?? '';
     if (!validExtensions.includes(fileExtension)) {

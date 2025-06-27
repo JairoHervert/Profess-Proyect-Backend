@@ -35,3 +35,10 @@ coverage/
 .idea/
 *.sqlite
 *.sqlite-journal
+
+# Images and media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
