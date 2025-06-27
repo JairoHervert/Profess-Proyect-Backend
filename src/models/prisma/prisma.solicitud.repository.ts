@@ -9,9 +9,24 @@ export class PrismaSolicitudRepository implements SolicitudRepository {
   // Crear una nueva solicitud de contratación
   async create(data: CreateSolicitudDto): Promise<SolicitudEntity> {
     try {
+      // Verificar si ya existe una solicitud con el mismo cliente, servicio y estado distinto a "archivada"
+      const existingSolicitud = await prisma.solicitudContratacion.findFirst({
+        where: {
+          cliente_idCliente: data.id_cliente,
+          servicio_idServicio: data.id_servicio,
+          estado: {
+            not: 'archivadas', // Asegurarse de que el estado no sea "archivada"
+          },
+        },
+      });
+
+      if (existingSolicitud) {
+        throw new Error('Ya existe una solicitud activa para este cliente y servicio.');
+      }
+
       const solicitud = await prisma.solicitudContratacion.create({
         data: {
-          estado: data.estado || 'pendiente',
+          estado: data.estado || 'pendientes',
           fechaSolicitud: data.fechaSolicitud || new Date(),
           servicio_idServicio: data.id_servicio,
           cliente_idCliente: data.id_cliente
