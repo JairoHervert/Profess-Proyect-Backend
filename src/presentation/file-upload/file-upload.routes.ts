@@ -14,7 +14,7 @@ export class FileUploadRoutes {
       '/single/:type',
       [AuthMiddleware.validateJWT],
       FileUploadMiddleware.containFiles,
-      TypeMiddleware.validTypes(['users', 'services', 'chat-uploads']),
+      TypeMiddleware.validTypes(['users', 'services', 'chat-uploads', 'profile-pictures']),
       controller.uploadFile
     );
 
