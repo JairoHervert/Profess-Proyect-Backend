@@ -19,4 +19,19 @@ export class PrismaCategoryRepository implements CategoryRepository {
       nombreCategoria: category.nombreCategoria,
     };
   }
+
+  async getbyId(idCategoria: number): Promise<CategoryEntity> {
+    const category = await prisma.categoria.findUnique({
+      where: { idCategoria },
+    });
+
+    if (!category) {
+      throw new Error(`Category with ID ${idCategoria} not found`);
+    }
+
+    return {
+      idCategoria: category.idCategoria,
+      nombreCategoria: category.nombreCategoria,
+    };
+  }
 }
