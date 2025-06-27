@@ -7,4 +7,5 @@ export interface PrestamistaRepository {
   findByCorreo(correo: string): Promise<PrestamistaEntity | null>;
   getNombreById(id: number): Promise<string | null>;
   completeData(idPrestamista: number, data: CompleteDataDto): Promise<PrestamistaEntity | null>;
+  getDataById(id: number): Promise<PrestamistaEntity | null>;
 }

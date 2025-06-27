@@ -47,6 +47,15 @@ export class PrismaClientRepository implements ClientRepository {
     };
   }
 
+  async getNombreById(id: number): Promise<string | null> {
+    const client = await prisma.cliente.findUnique({
+      where: { idCliente: id },
+      select: { nombre: true },
+    });
+
+    return client?.nombre ?? null;
+  }
+
   async completeData(idCliente: number, data: CompleteDataClientDto): Promise<ClientEntity | null> {
     const cliente = await prisma.cliente.update({
       where: { idCliente },

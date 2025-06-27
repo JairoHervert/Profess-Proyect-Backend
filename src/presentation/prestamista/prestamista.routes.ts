@@ -10,6 +10,7 @@ export class PrestamistaRoutes {
     router.post('/register', controller.registerPrestamista);
     router.post('/register-google', controller.registerGooglePrestamista);
     router.put('/complete-data', [AuthMiddleware.validateJWT], controller.completeData);
+    router.get('/get-data/:id', [AuthMiddleware.validateJWT], controller.getData);
     return router;
   }
 }

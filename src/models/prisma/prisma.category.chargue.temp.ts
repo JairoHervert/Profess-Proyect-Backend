@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export class PrismaCategoryRepository {
-  async cargarCategorias(): Promise<void> {
+  async loadCategory(): Promise<void> {
     const categorias = [
       'Plomería',
       'Electricidad',
@@ -48,6 +48,20 @@ export class PrismaCategoryRepository {
       console.log('Categorías cargadas con éxito.');
     } catch (error) {
       console.error('Error al cargar las categorías:', error);
+    }
+  }
+
+  async getCategories(): Promise<string[]> {
+    try {
+      const categories = await prisma.categoria.findMany({
+        select: {
+          nombreCategoria: true,
+        },
+      });
+      return categories.map((category) => category.nombreCategoria);
+    } catch (error) {
+      console.error('Error al obtener las categorías:', error);
+      throw error;
     }
   }
 }
