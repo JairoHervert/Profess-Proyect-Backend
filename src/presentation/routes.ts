@@ -17,8 +17,6 @@ export class AppRoutes {
     router.use('/api/user', UserRoutes.routes);
     router.use('/api/upload', FileUploadRoutes.routes);
 
-
-
     router.post('/api/load-categories', async (req, res) => {
       const categoryRepo = new PrismaCategoryRepository();
 

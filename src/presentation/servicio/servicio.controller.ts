@@ -12,7 +12,10 @@ export class ServicioController {
     new PrismaCategoryRepository()
   );
 
-  private readonly searchService = new SearchServicioService(new PrismaServicioRepository());
+  private readonly searchService = new SearchServicioService(
+    new PrismaServicioRepository(),
+    new PrismaCategoryRepository()
+  );
 
   private handleError = (error: unknown, res: Response) => {
     console.error('Error in ServicioController:', error);
