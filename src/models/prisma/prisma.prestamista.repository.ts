@@ -55,6 +55,32 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
 
     return prestamista?.nombre ?? null;
   }
+  async getDataById(id: number): Promise<PrestamistaEntity | null> {
+    const prestamista = await prisma.prestamista.findUnique({
+      where: { idPrestamista: id },
+    });
+
+    if (!prestamista) return null;
+
+    return {
+      id: prestamista.idPrestamista,
+      correo: prestamista.correo,
+      contraseña: prestamista.contraseña,
+      correoVerificado: prestamista.correoVerificado,
+      datosCompletos: prestamista.datosCompletos,
+      nombre: prestamista.nombre ?? undefined,
+      linkFoto: prestamista.linkFoto ?? undefined,
+      fechaNacimiento: prestamista.fechaNacimiento ?? undefined,
+      tipoCuenta: prestamista.tipoCuenta ?? undefined,
+      telefono: prestamista.telefono ?? undefined,
+      telefonoSecundario: prestamista.telefonoSecundario ?? undefined,
+      descripcion: prestamista.descripcion ?? undefined,
+      redesSociales: prestamista.redesSociales ?? undefined,
+      experiencia: prestamista.experiencia ?? undefined,
+      preferenciasPago: prestamista.preferenciasPago ?? undefined,
+      horarios: prestamista.horarios ?? undefined,
+    };
+  }
 
   async completeData(
     idPrestamista: number,

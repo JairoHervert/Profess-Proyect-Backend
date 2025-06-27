@@ -5,6 +5,7 @@ import { CreatePrestamistaService } from '../services/Prestamista/create-prestam
 import { RegisterPrestamistaGoogleService } from '../services/Prestamista/register-prestamista-google.service';
 import { CompleteDataDto } from '../../domain/dtos/prestamista/prestamista-completeData.dto';
 import { CompleteDataService } from '../services/Prestamista/completeData-prestamista.service';
+import { GetDataService } from '../services/Prestamista/get-data-prestamista.service';
 
 export class PrestamistaAuthController {
   private readonly registerService = new CreatePrestamistaService(
@@ -18,6 +19,7 @@ export class PrestamistaAuthController {
   );
 
   private readonly completeDataService = new CompleteDataService(new PrismaPrestamistaRepository());
+  private readonly getDataService = new GetDataService(new PrismaPrestamistaRepository());
 
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof Error) {
@@ -67,5 +69,19 @@ export class PrestamistaAuthController {
       .execute(completeDataDto!)
       .then(data => res.status(201).json(data))
       .catch(error => this.handleError(error, res));
+  };
+
+  public getData = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    try {
+      const data = await this.getDataService.execute(id);
+      return res.status(200).json(data);
+    } catch (error) {
+      this.handleError(error, res);
+    }
   };
 }
