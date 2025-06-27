@@ -2,13 +2,17 @@ import { Request, Response } from 'express';
 import { PrismaServicioRepository } from '../../models/prisma/prisma.servicio.repository';
 import { PrismaCategoryRepository } from '../../models/prisma/prisma.category.repository';
 import { CreateServicioService } from '../services/Servicio/create-servicio.service';
+import { SearchServicioService } from '../services/Servicio/search-servicio.service';
 import { CreateServicioDto } from '../../domain/dtos/servicio/create-servicio.dto';
+import { SearchServicioDto } from '../../domain/dtos/servicio/search-servicio.dto';
 
 export class ServicioController {
   private readonly createService = new CreateServicioService(
     new PrismaServicioRepository(),
     new PrismaCategoryRepository()
   );
+
+  private readonly searchService = new SearchServicioService(new PrismaServicioRepository());
 
   private handleError = (error: unknown, res: Response) => {
     console.error('Error in ServicioController:', error);
@@ -25,6 +29,21 @@ export class ServicioController {
     this.createService
       .execute(serviceCreateDto!)
       .then(servicio => res.status(201).json(servicio))
+      .catch(error => this.handleError(error, res));
+  };
+
+  public searchServicio = (req: Request, res: Response) => {
+    const query = {
+      trabajo: typeof req.query.trabajo === 'string' ? req.query.trabajo.trim() : '',
+      zona: typeof req.query.zona === 'string' ? req.query.zona.trim() : '',
+    };
+
+    const [error, searchDto] = SearchServicioDto.create(query);
+    if (error) return res.status(400).json({ error });
+
+    this.searchService
+      .execute(searchDto!)
+      .then(result => res.status(200).json(result))
       .catch(error => this.handleError(error, res));
   };
 }

@@ -65,12 +65,12 @@ model Servicio {
   materiales     Boolean  @default(false)
   direccion      String
   garantia       String   @default("No disponible")
-  zona           String
-  modalidades    String   @default("No disponible")
+  zona           String   @db.Text
+  modalidades    String   @db.Text @default("No disponible")
   createdAt      DateTime @default(now())
   fechaInicio    DateTime @default(now())
   imagenes       String   @db.Text
-  disponibilidad String?
+  disponibilidad String?  @db.Text
 
   prestamista_idPrestamista Int
   categoria_idCategoria     Int
