@@ -9,7 +9,7 @@ export class UserRoutes {
     router.post('/login', controller.login);
     router.post('/login-google', controller.loginGoogle);
     router.post('/logout', controller.logout);
-    
+
     return router;
   }
 }

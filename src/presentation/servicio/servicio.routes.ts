@@ -9,6 +9,7 @@ export class ServicioRoutes {
 
     router.post('/create', [AuthMiddleware.validateJWT], controller.createServicio);
     router.get('/search', [AuthMiddleware.validateJWT], controller.searchServicio);
+    router.get('/get-service/:id', [AuthMiddleware.validateJWT], controller.getService);
     return router;
   }
 }

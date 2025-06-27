@@ -5,9 +5,7 @@ import { CreateSolicitudDto } from '../../domain/dtos/solicitud-create.dto';
 import { DeleteSolicitudService } from '../services/solicitud/delete-solicitud.service';
 
 export class SolicitudController {
-  private readonly createService = new CreateSolicitudService(
-    new PrismaSolicitudRepository()
-  );
+  private readonly createService = new CreateSolicitudService(new PrismaSolicitudRepository());
 
   private handleError = (error: unknown, res: Response) => {
     console.error('Error in SolicitudController:', error);

@@ -110,4 +110,58 @@ export class PrismaServicioRepository implements ServicioRepository {
       categoriaId: servicio.categoria_idCategoria,
     }));
   }
+
+  async getByPrestamistaId(prestamistaId: number): Promise<ServicioEntity[]> {
+    const servicios = await prisma.servicio.findMany({
+      where: {
+        prestamista_idPrestamista: prestamistaId,
+      },
+    });
+
+    return servicios.map(servicio => ({
+      id: servicio.idServicio,
+      titulo: servicio.titulo,
+      descripcion: servicio.descripcion,
+      materiales: servicio.materiales,
+      direccion: servicio.direccion,
+      garantia: servicio.garantia,
+      zona: servicio.zona,
+      modalidades: servicio.modalidades,
+      createdAt: servicio.createdAt,
+      fechaInicio: servicio.fechaInicio,
+      imagenes: servicio.imagenes,
+      disponibilidad: servicio.disponibilidad || undefined,
+      prestamistaId: servicio.prestamista_idPrestamista,
+      categoriaId: servicio.categoria_idCategoria,
+    }));
+  }
+
+  async getServiceById(idPrestamista: number): Promise<ServicioEntity[]> {
+    const servicios = await prisma.servicio.findMany({
+      where: {
+        prestamista_idPrestamista: idPrestamista,
+      },
+      include: {
+        categoria: true,
+        prestamista: true,
+      },
+    });
+
+    return servicios.map(servicio => ({
+      id: servicio.idServicio,
+      titulo: servicio.titulo,
+      descripcion: servicio.descripcion,
+      materiales: servicio.materiales,
+      direccion: servicio.direccion,
+      garantia: servicio.garantia,
+      zona: servicio.zona,
+      modalidades: servicio.modalidades,
+      createdAt: servicio.createdAt,
+      fechaInicio: servicio.fechaInicio,
+      imagenes: servicio.imagenes,
+      disponibilidad: servicio.disponibilidad || undefined,
+      prestamistaId: servicio.prestamista_idPrestamista,
+      categoriaId: servicio.categoria_idCategoria,
+    }));
+  }
 }
