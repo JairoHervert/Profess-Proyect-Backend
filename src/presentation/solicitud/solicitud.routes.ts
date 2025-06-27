@@ -8,7 +8,9 @@ export class SolicitudRoutes {
 
     // Definir la ruta para crear una solicitud
     router.post('/create', controller.createSolicitud);
-    router.post('/delete/:id', controller.deleteSolicitud);
+    router.delete('/delete/:id', controller.deleteSolicitud);
+    router.get('/get-by-user/:idUser', controller.getSolicitudesByUser);
+    router.put('/update-state/:id/:estado', controller.updateSolicitudState);
 
     return router;
   }
