@@ -80,6 +80,7 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
       experiencia: prestamista.experiencia ?? undefined,
       preferenciasPago: prestamista.preferenciasPago ?? undefined,
       horarios: prestamista.horarios ?? undefined,
+      imgTrabajo: prestamista.imgTrabajo ?? undefined,
     };
   }
 
@@ -102,6 +103,7 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
         horarios: data.horarios,
         redesSociales: data.redesSociales,
         experiencia: data.experiencia,
+        imgTrabajo: data.imgTrabajo,
       },
     });
 
@@ -122,6 +124,7 @@ export class PrismaPrestamistaRepository implements PrestamistaRepository {
       horarios: prestamista.horarios ?? undefined,
       redesSociales: prestamista.redesSociales ?? undefined,
       experiencia: prestamista.experiencia ?? undefined,
+      imgTrabajo: prestamista.imgTrabajo ?? undefined,
     };
   }
 }

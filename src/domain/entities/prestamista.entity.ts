@@ -17,4 +17,5 @@ export interface PrestamistaEntity {
   redesSociales?: string;
   tipoCuenta?: string;
   experiencia?: string;
+  imgTrabajo?: string;
 }
