@@ -12,7 +12,8 @@ export class CompleteDataDto {
     public readonly preferenciasPago?: string,
     public readonly horarios?: string,
     public readonly redesSociales?: string,
-    public readonly experiencia?: string
+    public readonly experiencia?: string,
+    public readonly imgTrabajo?: string
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,6 +32,7 @@ export class CompleteDataDto {
       horarios,
       redesSociales,
       experiencia,
+      imgTrabajo,
     } = object;
 
     if (
@@ -62,7 +64,8 @@ export class CompleteDataDto {
       preferenciasPago ?? undefined,
       horarios ?? undefined,
       redesSociales ?? undefined,
-      experiencia ?? undefined
+      experiencia ?? undefined,
+      imgTrabajo ?? undefined
     );
 
     return [undefined, dto];
