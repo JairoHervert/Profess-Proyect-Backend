@@ -8,8 +8,7 @@ export class ServicioRoutes {
     const controller = new ServicioController();
 
     router.post('/create', [AuthMiddleware.validateJWT], controller.createServicio);
-    // router.post("/create", controller.createServicio);
-
+    router.get('/search', [AuthMiddleware.validateJWT], controller.searchServicio);
     return router;
   }
 }
